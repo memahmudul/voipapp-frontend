@@ -1,6 +1,8 @@
 import React from 'react';
 import { BottomTabBar, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home, Profile,History,Settings } from '../';
+import ActionBarImage from '../Screens/Home/ActionBarImage';
+import ActionBarIcon from '../Screens/Home/ActionBarIcon';
 
 
 const BottomTab = createBottomTabNavigator();
@@ -11,7 +13,14 @@ const TabRoutes = () => {
             
         >
         <BottomTab.Screen name="History" component={History} />
-            <BottomTab.Screen name="Home" component={Home} />
+            <BottomTab.Screen name="Home" component={Home}     options={{
+                headerTitle: '',
+       headerLeft:()=><ActionBarImage/>,
+       headerRight:()=> <ActionBarIcon/>,
+       headerStyle: {
+            backgroundColor: '#060047',
+          },
+        }}/>
             <BottomTab.Screen name="Profile" component={Profile} />
             <BottomTab.Screen name="Settings" component={Settings} />
         </BottomTab.Navigator>
