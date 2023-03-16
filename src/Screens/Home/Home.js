@@ -12,6 +12,7 @@ import BottomCard from './BottomCard';
 import { useSelector } from 'react-redux';
 
 import { updateBalanceState } from '../../redux/actions/balance';
+import { showError } from '../../utils/helperFunction';
 
 // create a component
 const Home = ({navigation}) => {
@@ -19,7 +20,7 @@ const Home = ({navigation}) => {
     
     const {user} = useSelector((state)=> state.auth.userData)
     const balance = useSelector((state)=> state.balance.balance)
-    console.log(balance);
+ 
     
     const email = user? user.email : 'demo@gmail.com'
 
@@ -66,11 +67,16 @@ const Home = ({navigation}) => {
 
     const onRefresh = async()=>{
         
-       const data=  await actions.getBalance({email})
-       if(data){
-        console.log(data);
-                updateBalanceState(data)
-              }  
+       const result=  await actions.getBalance({email})
+       console.log(result);
+       
+       if(result.success){
+        
+      
+                updateBalanceState(result.data)
+        }else{
+           console.log(result);
+        }  
        
 
     }
