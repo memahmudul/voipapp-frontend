@@ -5,7 +5,7 @@ import { SafeAreaView, StatusBar } from 'react-native';
 
 import MainStack from './MainStack';
 import AuthStack from './AuthStack';
-import { Login, Signup,VerifyPin,Home,Profile } from '..'
+import { Login, Signup,VerifyPin,Home,Profile,MobileBanking } from '..'
 import TabRoutes from './TabRoutes';
 
 import { useSelector } from 'react-redux';
@@ -42,6 +42,7 @@ export default function Routes() {
         <Stack.Screen name="TabRoutes" component={TabRoutes} options={{ headerShown: false }} />
         {/* <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Profile" component={Profile} /> */}
+          <Stack.Screen name="MobileBanking" component={MobileBanking} />
          
         </Stack.Group>
       )}

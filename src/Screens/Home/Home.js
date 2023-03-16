@@ -86,6 +86,15 @@ const Home = ({navigation}) => {
         onRefresh()
       },[]) 
 
+
+
+      const navigateToMobileBanking = (method)=>{
+        console.log('excute');
+        navigation.navigate('MobileBanking', {
+            method
+          })
+
+      }
     
 
   
@@ -127,13 +136,14 @@ const Home = ({navigation}) => {
       <View style={styles.cardShadow}>
         <View style={styles.cardContainer}>
         <View style={styles.mobileBankingInside}>
-       <MobileBankingCard icon={require("../../assets/bkash.png")} text="bKash"/>
-        <MobileBankingCard icon={require("../../assets/nagad.png")} text="Nagad"/>
-        <MobileBankingCard icon={require("../../assets/rocket.png")} text="Rocket"/>
-        <MobileBankingCard icon={require("../../assets/surecash.jpg")} text="SureCash"/>
-        <MobileBankingCard icon={require("../../assets/mkash.png")} text="mCash"/>
-        <MobileBankingCard icon={require("../../assets/ucash.png")} text="uCash"/> 
-         <MobileBankingCard icon={require("../../assets/okwallet.jpg")} text="OKBanking"/>
+       
+       <MobileBankingCard icon={require("../../assets/bkash.png")} text="bKash" onPress={navigateToMobileBanking} method="bkash"/>
+        <MobileBankingCard icon={require("../../assets/nagad.png")} text="Nagad" onPress={navigateToMobileBanking} method="rocket"/>
+        <MobileBankingCard icon={require("../../assets/rocket.png")} text="Rocket" onPress={navigateToMobileBanking} method="nagad"/>
+        <MobileBankingCard icon={require("../../assets/surecash.jpg")} text="SureCash" onPress={navigateToMobileBanking} method="surecash"/>
+        <MobileBankingCard icon={require("../../assets/mkash.png")} text="mCash" onPress={navigateToMobileBanking} method="mcash"/>
+        <MobileBankingCard icon={require("../../assets/ucash.png")} text="uCash" onPress={navigateToMobileBanking} method="ucash"/> 
+         <MobileBankingCard icon={require("../../assets/okwallet.jpg")} text="OKBanking" onPress={navigateToMobileBanking} method="okbanking"/>
        </View>
         </View>
       </View>

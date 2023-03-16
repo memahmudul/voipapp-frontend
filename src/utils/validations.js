@@ -10,14 +10,25 @@ const checkEmpty = (val, key) => {
 
 const checkMinLength = (val, minLength, key) => {
     if (val.trim().length < minLength) {
-        return `Please enter valid ${key}`
+        return `${key} must be at least ${minLength} character long`
     } else {
         return '';
     }
 }
 
+const checkMaxLength = (val, maxLength, key) => {
+    if (val.trim().length > maxLength) {
+        return `${key} can not exceed ${maxLength} character`
+    } else {
+        return '';
+    }
+}
+
+
+
+
 export default function (data) {
-    const { name,username,phone, email, password,confirmPassword,pin,confirmPin } = data
+    const { name,username,phone, email, password,confirmPassword,pin,confirmPin,recipient,amount,type } = data
     
     if(name!==undefined){
         let emptyValidationText = checkEmpty(name, 'Please enter your full name')
@@ -123,5 +134,48 @@ export default function (data) {
             }
         
     }
+
+    if(recipient!==undefined){
+        let emptyValidationText = checkEmpty(recipient, 'Please enter a recipient')
+        if(emptyValidationText!==''){
+            return emptyValidationText;
+
+        }
+            let minLengthValidation = checkMinLength(recipient, 11, 'recipient')
+            if (minLengthValidation !== '') {
+                return minLengthValidation
+            }
+
+            let maxLengthValidation = checkMaxLength(recipient,11,'recipient')
+            if (maxLengthValidation !== '') {
+                return maxLengthValidation
+            }
+        
+    }
+
+    console.log(amount);
+
+
+    if(amount!==undefined){
+        let emptyValidationText = checkEmpty(amount, 'Please enter an amount')
+        if(emptyValidationText!==''){
+            return emptyValidationText;
+
+        }else {
+            if(parseInt(amount)<10){
+                return "Amount can not be less than 10"
+            }
+           
+        }
+    }
+
+    if(type!==undefined){
+        let emptyValidationText = checkEmpty(type, 'Please select any transaction type')
+        if(emptyValidationText!==''){
+            return emptyValidationText;
+
+        }
+    }
+
 
 }

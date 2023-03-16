@@ -5,10 +5,13 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 // create a component
 const MobileBankingCard = ({ icon,
     text,
-    onPress}) => {
+    onPress,method}) => {
+
+
+    
       
     return (
-        <View style={{padding:5, width:'25%'}} onStartShouldSetResponder={onPress
+        <View style={{padding:5, width:'25%'}} onStartShouldSetResponder={()=>onPress(method)
         }>
           <View style={styles.cardShadow}>
   <View style={styles.cardContainer}>
