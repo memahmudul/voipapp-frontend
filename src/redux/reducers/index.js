@@ -1,11 +1,10 @@
 import { combineReducers } from "redux";
 import types from "../types";
 import auth from './auth';
-import balance from "./balance";
+
 
 const appReducer = combineReducers({
-    auth,
-    balance
+    auth
 })
 
 // const rootReducer = (state, action) => {

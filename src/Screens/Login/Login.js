@@ -55,6 +55,7 @@ const Login = ({ navigation }) => {
                     
                     setUserData(login_result[1]); //to add user data to async storage
 		console.log('user data saved successfully to async storage');
+        
 		saveUserData(login_result[1]) //to update state so that everything gets rendered
                 }
                 updateState({ isLoading: false })
