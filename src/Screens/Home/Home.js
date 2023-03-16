@@ -1,5 +1,5 @@
 //import liraries
-import React, { Component,useState } from 'react';
+import React, { Component,useEffect,useState,useRef,useLayoutEffect } from 'react';
 import { View, Text, StyleSheet,Alert, SafeAreaView,Image, } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import actions from '../../redux/actions';
@@ -11,15 +11,35 @@ import MobileBankingCard from '../../components/MobileBankingCard';
 import BottomCard from './BottomCard';
 import { useSelector } from 'react-redux';
 
+import { updateBalanceState } from '../../redux/actions/balance';
+
 // create a component
 const Home = ({navigation}) => {
-    const userData = useSelector((state)=> state.auth.userData)
-    const user = userData.user;
+
+    
+    const {user} = useSelector((state)=> state.auth.userData)
+    const balance = useSelector((state)=> state.balance.balance)
+    console.log(balance);
+    
+    const email = user? user.email : 'demo@gmail.com'
+
+    // useEffect(()=>{
+
+    //     (async()=>{
+    //       const balance = await actions.getBalance({email})
+    //       console.log(balance);
+         
+    //       if(balance){
+    //         updateBalanceState(balance)
+    //       }  
+    //     })();
+    //   },[])
    
     
    
 
     const [isLoading, setLoading] = useState(false)
+    
 
 
 
@@ -44,6 +64,24 @@ const Home = ({navigation}) => {
 
     
 
+    const onRefresh = async()=>{
+        
+       const data=  await actions.getBalance({email})
+       if(data){
+        console.log(data);
+                updateBalanceState(data)
+              }  
+       
+
+    }
+
+    useEffect(()=>{
+
+        onRefresh()
+      },[]) 
+
+    
+
   
 
     return (
@@ -56,9 +94,12 @@ const Home = ({navigation}) => {
         <View style={styles.balance}>
         <View style={styles.left}>
         <Text style={{color: 'white', fontSize: 10}}>Your Balance</Text>
-        <Text style={{color: 'white', fontSize: 20,fontWeight:'bold'}}>৳ {user? user.balance:'0'}</Text>
+        <Text style={{color: 'white', fontSize: 20,fontWeight:'bold'}}>৳ {balance? balance:'0'}</Text>
 
         </View>
+        <TouchableOpacity onPress={onRefresh}>
+            <View><Text style={{color:'white'}}>Refresh</Text></View>
+        </TouchableOpacity>
         <View style={styles.right}>
         <Icon.Button
             name="credit-card"

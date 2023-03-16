@@ -4,7 +4,7 @@ import { setUserData } from './asyncStorage';
 import { saveUserData } from '../redux/actions/auth';
 
 
-import { CONFIRM_PIN, LOGIN,SIGNUP,SET_INITIAL_BALANCE,GET_BALANCE } from '../config/urls';
+import { CONFIRM_PIN, LOGIN,SIGNUP,GET_BALANCE } from '../config/urls';
 import { showError } from './helperFunction';
 
 
@@ -59,8 +59,13 @@ export async function apiPost(endPoint,data,headers){
 			
 		}
 		if(result.data.success && endPoint==GET_BALANCE){
-			return ['get-balance-success',result.data]
-		}
+			
+			return result.data.balance
+		}else if(!result.data.success && endPoint==GET_BALANCE){
+			
+			return false
+		
+	}
 	
 		
 		
