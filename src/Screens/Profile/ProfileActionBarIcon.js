@@ -1,17 +1,16 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet,TouchableOpacity } from 'react-native';
-import actions from '../../redux/actions';
+import { View, Text, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 // create a component
-const Settings = () => {
-    const onLogout = ()=>{
-        actions.logout()
-    }
-
+const ProfileActionBarIcon = () => {
     return (
         <View style={styles.container}>
-           <TouchableOpacity onPress={onLogout}><Text>LOGOUT</Text></TouchableOpacity>
+        
+        <Icon.Button style={{marginRight:-6}}  name="edit" color='white' backgroundColor="transparent">
+           
+           </Icon.Button>
         </View>
     );
 };
@@ -22,9 +21,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#2c3e50',
+        // backgroundColor: 'red',
     },
 });
 
 //make this component available to the app
-export default Settings;
+export default ProfileActionBarIcon;

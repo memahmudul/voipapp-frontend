@@ -1,15 +1,18 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet,Image } from 'react-native';
+import { useSelector } from 'react-redux';
 
 // create a component
 const ActionBarImage = () => {
+    const userData = useSelector((state)=> state.auth.userData)
+    const user = userData.user;
     return (
         <View style={styles.container}>
         <Image source={require("../../assets/avatar.jpg")} style={{width: 40, height: 40,borderRadius:40,backgroundColor:'red'}}/>
             <View>
-            <Text style={{color:'white',fontWeight:'bold'}}>User</Text>
-            <Text style={{color:'white',fontWeight:'bold'}}>01743476214</Text>
+            <Text style={{color:'white',fontWeight:'bold'}}>{user? user.name:'John Doe'}</Text>
+            <Text style={{color:'white',fontWeight:'bold'}}>{user? user.phone:'017*******'}</Text>
             </View>
         </View>
         

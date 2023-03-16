@@ -67,10 +67,18 @@ const Signup = ({navigation}) => {
                     role
 
                 })
+                
                 if(result==='signup-success'){
                     updateState({ isLoading: false })
                     navigation.navigate('Login')
+                }else{
+                    showError(result)
+                    updateState({ isLoading: false })
                 }
+                    
+               
+
+                
                 
                 
                 

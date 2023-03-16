@@ -13,7 +13,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 // create a component
 const VerifyPin = ({ navigation }) => {
     const userData = useSelector((state)=> state.auth.userData)
-    const email = userData.email;
+    const email = userData.user.email;
+    
+    // console.log(email);
     
 
     
@@ -50,11 +52,18 @@ const VerifyPin = ({ navigation }) => {
                     pin,
                     email
                 })
+                 
 
                 if(result==='verify-pin-success'){
                     updateState({ isLoading: false })
                     navigation.navigate('TabRoutes')
+                }else{
+                    showError(result)
+                    updateState({ isLoading: false })
+
                 }
+
+                 
                 
             } catch (error) {
                 

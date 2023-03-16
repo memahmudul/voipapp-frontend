@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { SafeAreaView, StatusBar } from 'react-native';
 
 import MainStack from './MainStack';
 import AuthStack from './AuthStack';
@@ -22,7 +23,13 @@ export default function Routes() {
 
 
     return (
-        <NavigationContainer>
+      
+        <SafeAreaView  style={{flex: 1}}>
+         <StatusBar
+      backgroundColor= '#060047'
+    
+  />
+          <NavigationContainer>
             <Stack.Navigator>
             {!userData.token ? (
         <Stack.Group>
@@ -47,5 +54,6 @@ export default function Routes() {
                 
             </Stack.Navigator>
         </NavigationContainer>
+        </SafeAreaView>
     );
 }

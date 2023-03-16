@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component,useState } from 'react';
-import { View, Text, StyleSheet,Alert, SafeAreaView,Image } from 'react-native';
+import { View, Text, StyleSheet,Alert, SafeAreaView,Image, } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import actions from '../../redux/actions';
 import ButtonWithLoader from '../../components/ButtonWithLoader';
@@ -9,12 +9,19 @@ import Icon from 'react-native-vector-icons/Fontisto'
 import DropShadow from "react-native-drop-shadow";  
 import MobileBankingCard from '../../components/MobileBankingCard';
 import BottomCard from './BottomCard';
+import { useSelector } from 'react-redux';
 
 // create a component
 const Home = ({navigation}) => {
+    const userData = useSelector((state)=> state.auth.userData)
+    const user = userData.user;
+   
+    
    
 
     const [isLoading, setLoading] = useState(false)
+
+
 
     // const onLogoutAlert = () => {
     //     Alert.alert(
@@ -45,10 +52,11 @@ const Home = ({navigation}) => {
         
         
         
+        
         <View style={styles.balance}>
         <View style={styles.left}>
         <Text style={{color: 'white', fontSize: 10}}>Your Balance</Text>
-        <Text style={{color: 'white', fontSize: 20,fontWeight:'bold'}}>৳ 5000</Text>
+        <Text style={{color: 'white', fontSize: 20,fontWeight:'bold'}}>৳ {user? user.balance:'0'}</Text>
 
         </View>
         <View style={styles.right}>

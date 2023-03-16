@@ -8,6 +8,8 @@ import validations from '../../utils/validations.js';
 import { showError } from '../../utils/helperFunction';
 import actions from '../../redux/actions';
 import { login } from '../../redux/actions/auth';
+import { setUserData } from '../../utils/asyncStorage';
+import { saveUserData } from '../../redux/actions/auth';
 
 
 // create a component
@@ -42,10 +44,19 @@ const Login = ({ navigation }) => {
             updateState({ isLoading: true })
             try {
                 
-            await actions.login({
+            const login_result = await actions.login({
                     email,
                     password
                 })
+                if(login_result[0]=='login-success'){
+                    // const getBalanceResult = await actions.getBalance({email})
+                    // console.log(getBalanceResult);
+                   
+                    
+                    setUserData(login_result[1]); //to add user data to async storage
+		console.log('user data saved successfully to async storage');
+		saveUserData(login_result[1]) //to update state so that everything gets rendered
+                }
                 updateState({ isLoading: false })
               
                 

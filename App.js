@@ -30,7 +30,6 @@ const App = () => {
   return (
     
       <Provider store={store}>
-      
         <Routes />
       <FlashMessage position="top"/>
       </Provider>

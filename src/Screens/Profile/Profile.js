@@ -12,7 +12,7 @@ const Profile = () => {
 
     return (
         <View style={styles.container}>
-        <TouchableOpacity onPress={onLogout}><Text>LOGOUT</Text></TouchableOpacity>
+       
         </View>
     );
 };
@@ -21,9 +21,10 @@ const Profile = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#2c3e50',
+        padding:10,
+        backgroundColor: 'white',
+        flexDirection: 'column',
+        gap:10,
     },
 });
 
