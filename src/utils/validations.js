@@ -28,7 +28,8 @@ const checkMaxLength = (val, maxLength, key) => {
 
 
 export default function (data) {
-    const { name,username,phone, email, password,confirmPassword,pin,confirmPin,recipient,amount,type } = data
+    const { name,username,phone, email, password,confirmPassword,pin,confirmPin,recipient,amount,type,currentBalance } = data
+    console.log(`validation page amount is ${parseInt(amount)} and curr balance is ${parseInt(currentBalance)}`);
     
     if(name!==undefined){
         let emptyValidationText = checkEmpty(name, 'Please enter your full name')
@@ -153,7 +154,7 @@ export default function (data) {
         
     }
 
-    console.log(amount);
+    
 
 
     if(amount!==undefined){
@@ -161,12 +162,20 @@ export default function (data) {
         if(emptyValidationText!==''){
             return emptyValidationText;
 
-        }else {
+        }
             if(parseInt(amount)<10){
                 return "Amount can not be less than 10"
             }
+
+            
+            
+
+            if(parseInt(amount)>parseInt(currentBalance)){
+                return "You don't have enough balance"
+
+            }
            
-        }
+        
     }
 
     if(type!==undefined){

@@ -8,7 +8,7 @@ const initial_state = {
 export default function(state= initial_state, action){
     switch (action.type) {
         case types.LOGIN:
-            console.log(action.payload.user.balance);
+           
             return {userData: action.payload,balance:action.payload.user.balance} 
 
         // case types.GET_BALANCE:

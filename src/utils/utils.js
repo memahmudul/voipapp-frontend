@@ -4,7 +4,7 @@ import { setUserData } from './asyncStorage';
 import { saveUserData } from '../redux/actions/auth';
 
 
-import { CONFIRM_PIN, LOGIN,SIGNUP,GET_BALANCE } from '../config/urls';
+import { CONFIRM_PIN, LOGIN,SIGNUP,GET_BALANCE,PLACE_MOBILE_BANKING_ORDER } from '../config/urls';
 import { showError } from './helperFunction';
 
 
@@ -66,6 +66,17 @@ export async function apiPost(endPoint,data,headers){
 			return false
 		
 	}
+
+	if( result.data.success && endPoint==PLACE_MOBILE_BANKING_ORDER){
+		return ['mobile-banking-order-success',result.data]
+		
+			
+		
+	}else if( !result.data.success && endPoint==PLACE_MOBILE_BANKING_ORDER){
+		
+		return result.data.message
+	
+		}	
 	
 		
 		

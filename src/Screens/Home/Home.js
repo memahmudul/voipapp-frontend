@@ -20,6 +20,7 @@ const Home = ({navigation}) => {
     
     const {user} = useSelector((state)=> state.auth.userData)
     const balance = useSelector((state)=> state.balance.balance)
+    console.log(balance);
  
     
     const email = user? user.email : 'demo@gmail.com'
@@ -70,12 +71,13 @@ const Home = ({navigation}) => {
        const result=  await actions.getBalance({email})
        console.log(result);
        
-       if(result.success){
+       
+       if(result){
         
       
-                updateBalanceState(result.data)
+                updateBalanceState(result)
         }else{
-           console.log(result);
+           console.log('error occured');
         }  
        
 

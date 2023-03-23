@@ -1,9 +1,13 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
 // create a component
 const History = () => {
+    const transactionList = useSelector((state)=> state.transaction.transaction)
+    console.log(transactionList);
+ 
     return (
         <View style={styles.container}>
             <Text>MyComponent</Text>

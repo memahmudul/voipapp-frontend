@@ -5,10 +5,14 @@ import ButtonWithLoader from '../../components/ButtonWithLoader';
 import TextInputWithLabels from '../../components/TextInputWithLabel';
 import SelectDropdown from 'react-native-select-dropdown'
 import validations from '../../utils/validations.js';
-import { showError } from '../../utils/helperFunction';
+import { showError,showSuccess } from '../../utils/helperFunction';
+import { useSelector } from 'react-redux';
+import actions from '../../redux/actions';
+import { addSingleTransactionState } from '../../redux/actions/transactionorder';
+
 
 // create a component
-const MobileBanking = ({route}) => {
+const MobileBanking = ({route,navigation}) => {
     const valuefrompreviouspage = route.params.method
     const typeSelect = ["Cash in", "Cash Out", "Send Money"]
     const bankSelect = ["bkash", "rocket", "nagad","surecash","mcash","ucash","okwallet"]
@@ -22,7 +26,10 @@ const MobileBanking = ({route}) => {
         type:''
     })
 
-    const { recipient,amount,type,isLoading} = state
+    const { recipient,amount,type,isLoading,bank} = state
+    const currentBalance = useSelector((state)=> state.balance.balance)
+    const {email,username,phone} = useSelector((state)=> state.auth.userData.user)
+    
     
     const updateState = (data) => setState(() => ({ ...state, ...data }))
 
@@ -31,6 +38,7 @@ const MobileBanking = ({route}) => {
             recipient,
             amount,
             type,
+            currentBalance
            
         })
         if (error) {
@@ -42,33 +50,45 @@ const MobileBanking = ({route}) => {
 
 
     const onSend = async () => {
+      
        
        
         const checkValid = isValidData()
         if (checkValid) {
             updateState({ isLoading: true })
             try {
-                console.log(state);
-                updateState({ isLoading: false })
-                // const result = await actions.signup({
-                //     name,
-                //     username,
-                //     country,
-                //     phone,
-                //     email,
-                //     password,
-                //     pin,
-                //     role
+                const result = await actions.placeMobileBankingOrder({
+                    receiver:recipient,
+                    banking_method:bank,
+                    
+                    type,
+                    amount,
+                    sender_username: username,
+                    sender_email:email,
+                    sender_phone:phone,
+                    status: 'pending'
 
-                // })
+
+
+
+                })
                 
-                // if(result==='signup-success'){
-                //     updateState({ isLoading: false })
-                //     navigation.navigate('Login')
-                // }else{
-                //     showError(result)
-                //     updateState({ isLoading: false })
-                // }
+
+                
+
+                
+                if(result[0]==='mobile-banking-order-success'){
+                    
+                    addSingleTransactionState(result[1].data)
+                    updateState({ isLoading: false })
+                    showSuccess('Order placed Successfully')
+                    
+                    
+                    navigation.navigate('Home')
+                }else{
+                    showError(result)
+                    updateState({ isLoading: false })
+                }
                     
                
 
@@ -79,8 +99,8 @@ const MobileBanking = ({route}) => {
                 
                
             } catch (error) {
-                console.log("error raised")
-                showError(error.message)
+                // console.log(error)
+                // showError(error)
                 updateState({ isLoading: false })
             }
            
