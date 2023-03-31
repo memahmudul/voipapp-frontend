@@ -10,7 +10,7 @@ export default function(state= initial_state, action){
         case types.ORDER_TRANSACTION:
             console.log('order executing');
 
-        return {...state,transaction:[...state.transaction,action.payload]}
+        return {...state,transaction:[action.payload,...state.transaction]}
        
 
         case types.GET_TRANSACTION:

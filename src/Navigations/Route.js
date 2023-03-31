@@ -3,9 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaView, StatusBar } from 'react-native';
 
-import MainStack from './MainStack';
-import AuthStack from './AuthStack';
-import { Login, Signup,VerifyPin,Home,Profile,MobileBanking } from '..'
+
+import { Login, Signup,VerifyPin,Home,Profile,MobileBanking, BankTransfer,BillPay } from '..'
 import TabRoutes from './TabRoutes';
 
 import { useSelector } from 'react-redux';
@@ -18,8 +17,7 @@ const Stack = createStackNavigator();
 export default function Routes() {
 
     const userData = useSelector((state)=> state.auth.userData)
-    console.log(`route user data is ${userData.token}`);
-    console.log(`but we get this ${userData} for setting at logout`);
+   
 
 
     return (
@@ -43,6 +41,8 @@ export default function Routes() {
         {/* <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Profile" component={Profile} /> */}
           <Stack.Screen name="MobileBanking" component={MobileBanking} />
+          <Stack.Screen name="BankTransfer" component={BankTransfer} />
+          <Stack.Screen name="BillPay" component={BillPay} />
          
         </Stack.Group>
       )}

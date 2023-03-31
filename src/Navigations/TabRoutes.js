@@ -17,6 +17,10 @@ const TabRoutes = () => {
         >
         <BottomTab.Screen name="History" component={History}
         options={{
+          headerTitle: '',
+          headerStyle: {
+            backgroundColor: '#060047',
+          },
                 tabBarIcon:  ({ color, size }) => (
         <Icon name="history" color='#060047' size={30} />
       ),

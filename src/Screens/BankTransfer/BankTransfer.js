@@ -1,47 +1,67 @@
 //import liraries
-import React, { Component,useState } from 'react';
-import { View, Text, StyleSheet,SafeAreaView } from 'react-native';
+import React, {useState } from 'react';
+import { View, Text, StyleSheet,SafeAreaView,ScrollView } from 'react-native';
+import SelectDropdown from 'react-native-select-dropdown'
 import ButtonWithLoader from '../../components/ButtonWithLoader';
 import TextInputWithLabels from '../../components/TextInputWithLabel';
-import SelectDropdown from 'react-native-select-dropdown'
-
-import { validation } from '../../utils/validations.js';
+import RadioButtonRN from 'radio-buttons-react-native';
+import { bankTransferValidation } from '../../utils/validations';
 import { showError,showSuccess } from '../../utils/helperFunction';
 import { useSelector } from 'react-redux';
 import actions from '../../redux/actions';
 import { addSingleTransactionState } from '../../redux/actions/transactionorder';
 
-
 // create a component
-const MobileBanking = ({route,navigation}) => {
-    const valuefrompreviouspage = route.params.method
-    const typeSelect = ["Cash in", "Cash Out", "Send Money"]
-    const bankSelect = ["bkash", "rocket", "nagad","surecash","mcash","ucash","okwallet"]
+const BankTransfer = ({navigation}) => {
+    const bankData = ["Brac Bank", "Islami Bank", "DBBL","Mutual Trust Bank","Meghna Bank","Jamuna bank","City Bank"]
+    const typeData = [
+        {
+          label: 'savings'
+         },
+         {
+          label: 'current'
+         }
+        ];
 
     const [state, setState] = useState({
         isLoading: false,
-        recipient: '',
-        bank: valuefrompreviouspage,
+        
+        bank: '',
+        branch:'',
+        account_no:'',
+        account_name:'',
         
         amount: '',
         type:''
+        
     })
 
-    const { recipient,amount,type,isLoading,bank} = state
-    const currentBalance = useSelector((state)=> state.balance.balance)
-    const {email,username,phone} = useSelector((state)=> state.auth.userData.user)
-    
-    
+    const { isLoading,bank,branch,account_no,account_name,amount,type} = state
     const updateState = (data) => setState(() => ({ ...state, ...data }))
+    const {email,username,phone} = useSelector((state)=> state.auth.userData.user)
+    const currentBalance = useSelector((state)=> state.balance.balance)
+
+    const updateTypeState = (data)=>{
+        const type = data.label
+       
+        updateState({type})
+
+    }
+
+
 
     const isValidData = () => {
-        const error = validation({
-            recipient,
-            amount,
+        const error = bankTransferValidation({
+            bank,
+            branch,
+            account_no,
+            account_name,
+            
             type,
+            amount,
             currentBalance
-           
         })
+        
         if (error) {
             showError(error)
             return false
@@ -50,17 +70,25 @@ const MobileBanking = ({route,navigation}) => {
     }
 
 
+
+
     const onSend = async () => {
+        console.log(state);
       
        
        
         const checkValid = isValidData()
+        
         if (checkValid) {
             updateState({ isLoading: true })
             try {
-                const result = await actions.placeMobileBankingOrder({
-                    receiver:recipient,
-                    banking_method:bank,
+               
+               
+                const result = await actions.placeBankingOrder({
+                    bank,
+                    branch,
+                    account_no,
+                    account_name,
                     
                     type,
                     amount,
@@ -78,16 +106,20 @@ const MobileBanking = ({route,navigation}) => {
                 
 
                 
-                if(result[0]==='mobile-banking-order-success'){
+
+                
+                if(result[0]==='banking-order-success'){
+                   
+                  
                     
-                    addSingleTransactionState(result[1].data)
+                    addSingleTransactionState(result[1])
                     updateState({ isLoading: false })
                     showSuccess('Order placed Successfully')
                     
                     
-                    navigation.navigate('Home')
+                   navigation.navigate('Home')
                 }else{
-                    showError(result)
+                    showError(result[0])
                     updateState({ isLoading: false })
                 }
                     
@@ -110,24 +142,19 @@ const MobileBanking = ({route,navigation}) => {
             
         }
     }
-
     return (
-        <View style={styles.container}>
+        <ScrollView>
+            <View style={styles.container}>
         <SafeAreaView>
        
-        <TextInputWithLabels
-            label="Enter Recipient"
-            placeHolder="eg: 01*********"
-            onChangeText={(recipient) => updateState({ recipient })}
-            
-        />
+        
 
-<Text style={{fontSize:16,fontWeight:'bold' ,marginBottom:10}}>Select Mobile Banking</Text>
+<Text style={{fontSize:16,fontWeight:'bold' ,marginBottom:10}}>Select Bank</Text>
 
 <SelectDropdown
         buttonStyle={{width:'100%',marginBottom:15}}
-        defaultButtonText= {valuefrompreviouspage}
-            data={bankSelect}
+        defaultButtonText= 'Click to select a bank'
+            data={bankData}
             onSelect={(bank, index) => {
                 updateState({ bank })
 	}}
@@ -144,36 +171,45 @@ const MobileBanking = ({route,navigation}) => {
 		return item
 	}}
         />
+
+<TextInputWithLabels
+            label="Branch"
+            placeHolder="Enter Branch"
+            onChangeText={(branch) => updateState({ branch })}
+            
+        />
+        <TextInputWithLabels
+            label="Account Number"
+            placeHolder="Enter bank a/c no"
+            onChangeText={(account_no) => updateState({ account_no })}
+            
+        />
+        <TextInputWithLabels
+            label="Account Name"
+            placeHolder="Enter bank a/c name"
+            onChangeText={(account_name) => updateState({ account_name })}
+            
+        />
+       
+         
        
         <TextInputWithLabels
             label="Amount"
-            placeHolder="eg: 100"
+            placeHolder="Enter Amount"
             onChangeText={(amount) => updateState({ amount })}
             
         />
-        <Text style={{fontSize:16,fontWeight:'bold' ,marginBottom:10}}>Type</Text>
+         <Text style={{fontSize:16,fontWeight:'bold' ,marginBottom:10}}>Select Type</Text>
+        <RadioButtonRN
+  data={typeData}
+  box={false}
+  selectedBtn={(type) => updateTypeState(type)}
+/>
+      
+        
 
 
-        <SelectDropdown
-        buttonStyle={{width:'100%',marginBottom:15}}
-        defaultButtonText="Select A Type"
-            data={typeSelect}
-            onSelect={(type, index) => {
-                updateState({ type })
-	}}
-
-    buttonTextAfterSelection={(selectedItem, index) => {
-		// text represented after item is selected
-		// if data array is an array of objects then return selectedItem.property to render after item is selected
-		return selectedItem
-	}}
-
-    rowTextForSelection={(item, index) => {
-		// text represented for each item in dropdown
-		// if data array is an array of objects then return item.property to represent item in dropdown
-		return item
-	}}
-        />
+        
         
         
         <ButtonWithLoader text="Send Now" onPress={()=>onSend()} isLoading={isLoading}/>
@@ -185,6 +221,7 @@ const MobileBanking = ({route,navigation}) => {
         
         </SafeAreaView>
     </View>
+        </ScrollView>
     );
 };
 
@@ -198,4 +235,4 @@ const styles = StyleSheet.create({
 });
 
 //make this component available to the app
-export default MobileBanking;
+export default BankTransfer;

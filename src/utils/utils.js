@@ -4,7 +4,7 @@ import { setUserData } from './asyncStorage';
 import { saveUserData } from '../redux/actions/auth';
 
 
-import { CONFIRM_PIN, LOGIN,SIGNUP,GET_BALANCE,PLACE_MOBILE_BANKING_ORDER } from '../config/urls';
+import { CONFIRM_PIN, LOGIN,SIGNUP,GET_BALANCE,PLACE_MOBILE_BANKING_ORDER, FETCH_ALL_TRANSACTION,PLACE_BANKING_ORDER,PLACE_BILL_PAY_ORDER, FETCH_BANKING_TRANSACTION,FETCH_MOBILE_BANKING_TRANSACTION } from '../config/urls';
 import { showError } from './helperFunction';
 
 
@@ -33,7 +33,9 @@ export async function apiPost(endPoint,data,headers){
 	
 	try {
 		
+		
 		const result = await axios({method:'post',url:endPoint,headers:headers,data:data})
+		
 		
 		
 		if(result.data.success && endPoint==SIGNUP){
@@ -48,6 +50,11 @@ export async function apiPost(endPoint,data,headers){
 
 		if(result.data.success && endPoint==LOGIN){
 			return ['login-success',result.data]
+			
+
+		}else if(!result.data.success && endPoint==LOGIN){
+			return [result.data.message]
+			
 
 		}
 		
@@ -77,6 +84,60 @@ export async function apiPost(endPoint,data,headers){
 		return result.data.message
 	
 		}	
+
+
+		if(result.data.success && endPoint==FETCH_MOBILE_BANKING_TRANSACTION){
+			return result.data.result
+			
+			
+				
+			
+		}else if( !result.data.success && endPoint==FETCH_MOBILE_BANKING_TRANSACTION){
+			
+			return false;
+		
+			}	
+
+			if(result.data.success && endPoint==FETCH_BANKING_TRANSACTION){
+				return result.data.result
+				
+				
+					
+				
+			}else if( !result.data.success && endPoint==FETCH_BANKING_TRANSACTION){
+				
+				return false;
+			
+				}
+
+
+			if(result.data.success && endPoint==PLACE_BANKING_ORDER){
+				return ['banking-order-success',result.data.data]
+				
+				
+				
+					
+				
+			}else if( !result.data.success && endPoint==PLACE_BANKING_ORDER){
+				
+				return [result.data.message]
+				
+			
+				}	
+
+				if(result.data.success && endPoint==PLACE_BILL_PAY_ORDER){
+					return ['billpay-order-success',result.data.data]
+					
+					
+					
+						
+					
+				}else if( !result.data.success && endPoint==PLACE_BILL_PAY_ORDER){
+					
+					return [result.data.message]
+					
+				
+					}	
 	
 		
 		

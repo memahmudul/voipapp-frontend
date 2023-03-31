@@ -1,5 +1,5 @@
-//import liraries
-import React, { Component,useEffect,useState,useRef,useLayoutEffect } from 'react';
+//import libraries
+import React, { Component,useEffect,useState } from 'react';
 import { View, Text, StyleSheet,Alert, SafeAreaView,Image, } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import actions from '../../redux/actions';
@@ -20,7 +20,7 @@ const Home = ({navigation}) => {
     
     const {user} = useSelector((state)=> state.auth.userData)
     const balance = useSelector((state)=> state.balance.balance)
-    console.log(balance);
+    
  
     
     const email = user? user.email : 'demo@gmail.com'
@@ -77,7 +77,7 @@ const Home = ({navigation}) => {
       
                 updateBalanceState(result)
         }else{
-           console.log('error occured');
+           showError('Error Occurred')
         }  
        
 
@@ -91,13 +91,27 @@ const Home = ({navigation}) => {
 
 
       const navigateToMobileBanking = (method)=>{
-        console.log('excute');
+        
         navigation.navigate('MobileBanking', {
             method
           })
 
       }
+
+      const navigateToBankTransfer = ()=>{
+        
+        navigation.navigate('BankTransfer')
+
+      }
+
+      const navigateToBillPay = ()=>{
+        
+        navigation.navigate('BillPay')
+
+      }
     
+
+      
 
   
 
@@ -140,8 +154,8 @@ const Home = ({navigation}) => {
         <View style={styles.mobileBankingInside}>
        
        <MobileBankingCard icon={require("../../assets/bkash.png")} text="bKash" onPress={navigateToMobileBanking} method="bkash"/>
-        <MobileBankingCard icon={require("../../assets/nagad.png")} text="Nagad" onPress={navigateToMobileBanking} method="rocket"/>
-        <MobileBankingCard icon={require("../../assets/rocket.png")} text="Rocket" onPress={navigateToMobileBanking} method="nagad"/>
+        <MobileBankingCard icon={require("../../assets/nagad.png")} text="Nagad" onPress={navigateToMobileBanking} method="nagad"/>
+        <MobileBankingCard icon={require("../../assets/rocket.png")} text="Rocket" onPress={navigateToMobileBanking} method="rocket"/>
         <MobileBankingCard icon={require("../../assets/surecash.jpg")} text="SureCash" onPress={navigateToMobileBanking} method="surecash"/>
         <MobileBankingCard icon={require("../../assets/mkash.png")} text="mCash" onPress={navigateToMobileBanking} method="mcash"/>
         <MobileBankingCard icon={require("../../assets/ucash.png")} text="uCash" onPress={navigateToMobileBanking} method="ucash"/> 
@@ -159,8 +173,8 @@ const Home = ({navigation}) => {
         <View style={styles.cardShadow}>
             <View style={styles.cardContainer}>
             <View style={styles.mobileBankingInside}>
-            <BottomCard text="Bank Transfer" icon_name="bank"/>
-            <BottomCard text="Bill Pay" icon_name="credit-card-alt"/>
+            <BottomCard text="Bank Transfer" icon_name="bank" onPress={navigateToBankTransfer}/>
+            <BottomCard text="Bill Pay" icon_name="credit-card-alt" onPress={navigateToBillPay}/>
             <BottomCard text="Recharge" icon_name="mobile-phone"/>
             <BottomCard text="Offer Package" icon_name="gift"/>
 

@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ButtonWithLoader from '../../components/ButtonWithLoader';
 import TextInputWithLabels from '../../components/TextInputWithLabel';
-import validations from '../../utils/validations.js';
+import { validation } from '../../utils/validations';
 import { showError } from '../../utils/helperFunction';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -33,7 +33,7 @@ const Signup = ({navigation}) => {
 
 
     const isValidData = () => {
-        const error = validations({
+        const error = validation({
             name,
             username,
             phone,

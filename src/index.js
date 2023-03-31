@@ -9,3 +9,5 @@ export {default as VerifyPin} from './Screens/VerifyPin/VerifyPin';
 export {default as History} from './Screens/History/History';
 export {default as Settings} from './Screens/Settings/Settings';
 export {default as MobileBanking} from './Screens/MobileBanking/MobileBanking';
+export {default as BankTransfer} from './Screens/BankTransfer/BankTransfer';
+export {default as BillPay} from './Screens/BillPay/BillPay';

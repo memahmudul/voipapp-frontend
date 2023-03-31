@@ -4,8 +4,8 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ButtonWithLoader from '../../components/ButtonWithLoader';
 import TextInputWithLabels from '../../components/TextInputWithLabel';
-import validations from '../../utils/validations.js';
-import { showError } from '../../utils/helperFunction';
+import { validation } from '../../utils/validations';
+import { showError,showSuccess } from '../../utils/helperFunction';
 import actions from '../../redux/actions';
 import { login } from '../../redux/actions/auth';
 import { setUserData } from '../../utils/asyncStorage';
@@ -26,7 +26,7 @@ const Login = ({ navigation }) => {
 
 
     const isValidData = () => {
-        const error = validations({
+        const error = validation({
             email,
             password
         })
@@ -49,24 +49,36 @@ const Login = ({ navigation }) => {
                     password
                 })
                 if(login_result[0]=='login-success'){
-                    // const getBalanceResult = await actions.getBalance({email})
-                    // console.log(getBalanceResult);
+                   
+                    
+                  
+                    
                    
                     
                     setUserData(login_result[1]); //to add user data to async storage
-		console.log('user data saved successfully to async storage');
+		
         
-		saveUserData(login_result[1]) //to update state so that everything gets rendered
+		saveUserData(login_result[1])
+        showSuccess('Log in Success')
+        updateState({ isLoading: false }) //to update state so that everything gets rendered
+                }else{
+                    
+
+                    showError(login_result[0])
+
+
+                    updateState({ isLoading: false })
+
                 }
-                updateState({ isLoading: false })
+              
               
                 
                 
                 
                 
             } catch (error) {
-                console.log("error raised")
-                showError(error.message)
+                
+                showError(error)
                 updateState({ isLoading: false })
             }
             

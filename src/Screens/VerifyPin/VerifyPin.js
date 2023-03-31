@@ -3,7 +3,7 @@ import React, { Component,useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import ButtonWithLoader from '../../components/ButtonWithLoader';
 import TextInputWithLabels from '../../components/TextInputWithLabel';
-import validations from '../../utils/validations.js';
+import { validation } from '../../utils/validations';
 import { showError } from '../../utils/helperFunction';
 import actions from '../../redux/actions';
 
@@ -13,10 +13,15 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 // create a component
 const VerifyPin = ({ navigation }) => {
     const userData = useSelector((state)=> state.auth.userData)
-    const email = userData.user.email;
+ 
     
-    // console.log(email);
+    let email;
+    if(userData.success){
+        email = userData.user.email
+    }
     
+    
+
 
     
     const [state, setState] = useState({
@@ -28,7 +33,7 @@ const VerifyPin = ({ navigation }) => {
     const updateState = (data) => setState(() => ({ ...state, ...data }))
 
     const isValidData = () => {
-        const error = validations({
+        const error = validation({
             pin
         })
         if (error) {
