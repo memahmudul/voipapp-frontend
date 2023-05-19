@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import actions from '../../redux/actions';
 import ButtonWithLoader from '../../components/ButtonWithLoader';
 import Icon from 'react-native-vector-icons/Fontisto'
+import Iconf from 'react-native-vector-icons/FontAwesome'
 
 import DropShadow from "react-native-drop-shadow";  
 import MobileBankingCard from '../../components/MobileBankingCard';
@@ -69,7 +70,7 @@ const Home = ({navigation}) => {
     const onRefresh = async()=>{
         
        const result=  await actions.getBalance({email})
-       console.log(result);
+      
        
        
        if(result){
@@ -109,6 +110,17 @@ const Home = ({navigation}) => {
         navigation.navigate('BillPay')
 
       }
+
+      const navigateToRecharge = ()=>{
+        navigation.navigate('Recharge')
+
+      }
+
+      const navigateToOffer = ()=>{
+        navigation.navigate('Offer')
+
+      }
+    
     
 
       
@@ -129,7 +141,8 @@ const Home = ({navigation}) => {
 
         </View>
         <TouchableOpacity onPress={onRefresh}>
-            <View><Text style={{color:'white'}}>Refresh</Text></View>
+        <Iconf.Button name="refresh"  backgroundColor="transparent" color="white"></Iconf.Button>
+            
         </TouchableOpacity>
         <View style={styles.right}>
         <Icon.Button
@@ -175,8 +188,8 @@ const Home = ({navigation}) => {
             <View style={styles.mobileBankingInside}>
             <BottomCard text="Bank Transfer" icon_name="bank" onPress={navigateToBankTransfer}/>
             <BottomCard text="Bill Pay" icon_name="credit-card-alt" onPress={navigateToBillPay}/>
-            <BottomCard text="Recharge" icon_name="mobile-phone"/>
-            <BottomCard text="Offer Package" icon_name="gift"/>
+            <BottomCard text="Recharge" icon_name="mobile-phone" onPress={navigateToRecharge}/>
+            <BottomCard text="Offer Package" icon_name="gift" onPress={navigateToOffer}/>
 
             </View>
             

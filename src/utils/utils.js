@@ -4,7 +4,21 @@ import { setUserData } from './asyncStorage';
 import { saveUserData } from '../redux/actions/auth';
 
 
-import { CONFIRM_PIN, LOGIN,SIGNUP,GET_BALANCE,PLACE_MOBILE_BANKING_ORDER, FETCH_ALL_TRANSACTION,PLACE_BANKING_ORDER,PLACE_BILL_PAY_ORDER, FETCH_BANKING_TRANSACTION,FETCH_MOBILE_BANKING_TRANSACTION } from '../config/urls';
+import { CONFIRM_PIN, 
+	LOGIN,
+	SIGNUP,
+	GET_BALANCE,
+	PLACE_MOBILE_BANKING_ORDER, 
+	FETCH_ALL_TRANSACTION,
+	PLACE_BANKING_ORDER,PLACE_BILL_PAY_ORDER,
+	PLACE_RECHARGE_ORDER, 
+	FETCH_BANKING_TRANSACTION,
+	FETCH_MOBILE_BANKING_TRANSACTION,
+	FETCH_BILL_PAY_TRANSACTION,
+	FETCH_RECHARGE_TRANSACTION, 
+	GET_OFFER_PACKAGES,
+	PLACE_OFFER_ORDER,
+	FETCH_OFFER_PACKAGE_TRANSACTION } from '../config/urls';
 import { showError } from './helperFunction';
 
 
@@ -126,6 +140,7 @@ export async function apiPost(endPoint,data,headers){
 				}	
 
 				if(result.data.success && endPoint==PLACE_BILL_PAY_ORDER){
+					
 					return ['billpay-order-success',result.data.data]
 					
 					
@@ -133,11 +148,94 @@ export async function apiPost(endPoint,data,headers){
 						
 					
 				}else if( !result.data.success && endPoint==PLACE_BILL_PAY_ORDER){
+
+				
 					
-					return [result.data.message]
+					 return [result.data.message]
 					
 				
-					}	
+					}
+					
+					
+					if(result.data.success && endPoint==PLACE_RECHARGE_ORDER){
+						
+					
+						return ['recharge-order-success',result.data.data]
+						
+						
+						
+							
+						
+					}else if( !result.data.success && endPoint==PLACE_RECHARGE_ORDER){
+				
+	
+					
+						
+						 return [result.data.message]
+						
+					
+						}	
+
+					if(result.data.success && endPoint==FETCH_BILL_PAY_TRANSACTION){
+						return result.data.result
+						
+						
+							
+						
+					}else if( !result.data.success && endPoint==FETCH_BILL_PAY_TRANSACTION){
+						
+						return false;
+					
+						}
+
+						if(result.data.success && endPoint==FETCH_RECHARGE_TRANSACTION){
+							return result.data.result
+							
+							
+								
+							
+						}else if( !result.data.success && endPoint==FETCH_RECHARGE_TRANSACTION){
+							
+							return false;
+						
+							}
+
+							if(result.data.success && endPoint==FETCH_OFFER_PACKAGE_TRANSACTION){
+								return result.data.result
+								
+								
+									
+								
+							}else if( !result.data.success && endPoint==FETCH_OFFER_PACKAGE_TRANSACTION){
+								
+								return false;
+							
+								}
+
+							if(result.data.success && endPoint==GET_OFFER_PACKAGES){
+								return result.data.result
+								
+								
+									
+								
+							}else if( !result.data.success && endPoint==GET_OFFER_PACKAGES){
+								
+								return false;
+							
+								}
+								
+
+								if(result.data.success && endPoint==PLACE_OFFER_ORDER){
+									return ['offer-order-success',result.data.data]
+									
+									
+										
+									
+								}else if( !result.data.success && endPoint==PLACE_OFFER_ORDER){
+									
+									return [result.data.message];
+								
+									}
 	
 		
 		

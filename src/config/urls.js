@@ -12,6 +12,21 @@ export const PLACE_BANKING_ORDER = getApiUrl('/order/add-banking-order');
 export const FETCH_BANKING_TRANSACTION = getApiUrl('/order/get-all-banking-order');
 
 export const PLACE_BILL_PAY_ORDER = getApiUrl('/order/add-bill-pay-order');
+export const FETCH_BILL_PAY_TRANSACTION = getApiUrl('/order/get-all-bill-pay-order');
+export const PLACE_RECHARGE_ORDER = getApiUrl('/order/add-recharge-order');
+export const FETCH_RECHARGE_TRANSACTION = getApiUrl('/order/get-all-recharge-order');
+export const GET_OFFER_PACKAGES = getApiUrl('/offer/get-all-offers');
+export const PLACE_OFFER_ORDER = getApiUrl('/offer/place-offer-order');
+export const FETCH_OFFER_PACKAGE_TRANSACTION = getApiUrl('/order/get-all-offer-order');
+
+
+
+
+
+
+
+
+
 
 
 

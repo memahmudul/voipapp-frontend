@@ -1,4 +1,11 @@
 import validator from 'is_js';
+import phone_validator from "bd-phone-number-validator"
+const { validate, operator } = phone_validator;
+
+
+
+
+
 
 const checkEmpty = (val, key) => {
     if (validator.empty(val.trim())) {
@@ -152,15 +159,11 @@ export const validation = (data) =>{
             return emptyValidationText;
 
         }
-            let minLengthValidation = checkMinLength(recipient, 11, 'recipient')
-            if (minLengthValidation !== '') {
-                return minLengthValidation
-            }
 
-            let maxLengthValidation = checkMaxLength(recipient,11,'recipient')
-            if (maxLengthValidation !== '') {
-                return maxLengthValidation
-            }
+        if(!validate(recipient)){
+            return 'The number is not valid'
+        }
+           
         
     }
 
@@ -376,3 +379,130 @@ export const billPayValidation = (data)=>{
         }
     }
 }
+
+
+
+
+
+
+export const rechargeValidation = (data)=>{
+    const { operators,recipient,amount,type,currentBalance} = data
+    if(operators!==undefined){
+        let emptyValidationText = checkEmpty(operators, 'Please select an Operator')
+        if(emptyValidationText!==''){
+            return emptyValidationText;
+
+        }
+    }
+
+    if(recipient!==undefined){
+        let emptyValidationText = checkEmpty(recipient, 'Enter a phone number')
+        if(emptyValidationText!==''){
+            return emptyValidationText;
+
+        }
+    }
+
+
+
+    const validation_object = operator(recipient)
+
+  
+
+    if(validation_object.operator!==operators){
+        return `The number is not a valid ${operators} number`
+
+    }
+
+  
+       
+  
+    
+
+
+      
+   
+
+
+
+   
+
+   
+
+    
+
+   
+
+ 
+    if(amount!==undefined){
+        let emptyValidationText = checkEmpty(amount, 'Please enter an amount')
+        if(emptyValidationText!==''){
+            return emptyValidationText;
+
+        }
+        let isNumValidation = checkIsNum(amount, 'Amount')
+        if (isNumValidation !== '') {
+            return isNumValidation
+        }
+
+        if(parseInt(amount)<20){
+            return "Amount can not be less than 20"
+        }
+
+        
+        
+
+        if(parseInt(amount)>parseInt(currentBalance)){
+            return "You don't have enough balance"
+
+        }
+    }
+
+
+
+
+
+    if(type!==undefined){
+        let emptyValidationText = checkEmpty(type, 'Please select a  type')
+        if(emptyValidationText!==''){
+            return emptyValidationText;
+
+        }
+    }
+}
+
+
+export const activateOfferValidation = (data)=>{
+    const { recipient,operators,price,currentBalance} = data
+    if(recipient!==undefined){
+        let emptyValidationText = checkEmpty(recipient, 'Enter a phone number')
+        if(emptyValidationText!==''){
+            return emptyValidationText;
+
+        }
+
+        const validation_object = operator(recipient)
+        console.log(`the operator from validfation is ${operators}`);
+        
+
+        const temp = validation_object.operator
+        const toLower = temp.toLowerCase()
+
+        if(toLower!==operators){
+            return `The number is not a valid ${operators} number`
+    
+        }
+
+        if(parseInt(price)>parseInt(currentBalance)){
+            return "You don't have enough balance to adtivate this offer"
+
+        }
+    
+
+    }
+
+}
+
+
+
+

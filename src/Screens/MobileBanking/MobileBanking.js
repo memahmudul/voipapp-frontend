@@ -114,6 +114,7 @@ const MobileBanking = ({route,navigation}) => {
     return (
         <View style={styles.container}>
         <SafeAreaView>
+        <Text style={{fontSize:24,fontWeight:'bold' ,marginBottom:10,textTransform:'uppercase',textAlign:'center'}}>{valuefrompreviouspage}</Text>
        
         <TextInputWithLabels
             label="Enter Recipient"
@@ -122,9 +123,9 @@ const MobileBanking = ({route,navigation}) => {
             
         />
 
-<Text style={{fontSize:16,fontWeight:'bold' ,marginBottom:10}}>Select Mobile Banking</Text>
 
-<SelectDropdown
+
+{/* <SelectDropdown
         buttonStyle={{width:'100%',marginBottom:15}}
         defaultButtonText= {valuefrompreviouspage}
             data={bankSelect}
@@ -143,7 +144,7 @@ const MobileBanking = ({route,navigation}) => {
 		// if data array is an array of objects then return item.property to represent item in dropdown
 		return item
 	}}
-        />
+        /> */}
        
         <TextInputWithLabels
             label="Amount"

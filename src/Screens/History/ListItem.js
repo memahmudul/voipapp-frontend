@@ -20,6 +20,7 @@ const ListItem = (item) => {
             <View>
             <Text style={{fontSize:26,fontWeight:'bold',color:'#060047'}}>{`৳ ${item.item.amount}`}</Text>
             <Text style={{fontSize:14,color:'green'}}>Commission: <Text>{item.item.amount}</Text></Text>
+            <Text style={{fontSize:14,color:'green'}}>Time: <Text>{item.item.updatedAt}</Text></Text>
 
             </View>
            </View>
@@ -31,12 +32,13 @@ const ListItem = (item) => {
 const styles = StyleSheet.create({
     
     item: {
-        marginBottom:15,
+        marginBottom:4,
         padding: 10,
        
         
         backgroundColor: 'rgba(1, 156, 49, 0.2)',
-        borderRadius:10
+        borderRadius:10,
+        borderBottomWidth: 2
       },
 });
 

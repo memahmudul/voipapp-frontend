@@ -17,9 +17,12 @@ const TabRoutes = () => {
         >
         <BottomTab.Screen name="History" component={History}
         options={{
-          headerTitle: '',
+          headerTitle: 'Swipe Down To Refresh',
+          headerTintColor:'white',
+         
           headerStyle: {
             backgroundColor: '#060047',
+            
           },
                 tabBarIcon:  ({ color, size }) => (
         <Icon name="history" color='#060047' size={30} />

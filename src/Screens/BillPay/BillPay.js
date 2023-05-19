@@ -14,13 +14,11 @@ import { addSingleTransactionState } from '../../redux/actions/transactionorder'
 const BillPay = () => {
 
     const billData = ["Gas", "Electricity", "Water","Internet","Telephone","TV","Education","Credit Card","others","Western Union"]
+    const monthData = ["January", "February", "March","April","May","June","July","August","September","October","November",'December']
     const typeData = [
-        {
-          label: 'prepaid'
-         },
-         {
-          label: 'postpaid'
-         }
+        'prepaid',
+         'postpaid'
+         
         ];
 
     const [state, setState] = useState({
@@ -45,48 +43,77 @@ const BillPay = () => {
 
     const {email,username,phone} = useSelector((state)=> state.auth.userData.user)
     const currentBalance = useSelector((state)=> state.balance.balance)
+    
 
-    const updateTypeState = (data)=>{
-        const type = data.label
-       
-        updateState({type})
+   
+    const isValidData = (type) => {
+        if(type==='prepaid'){
+            const error = billPayValidation({
+                bill_service,
+                type,
+                month,
+                meter_no,
+                account_no,
+                contact_no,
+                biller_name,
+                amount,
+                currentBalance
+            })
+            
+            if (error) {
+                showError(error)
+                return false
+            }
+            return true
+        }else if(type==='postpaid'){
+            const error = billPayValidation({
+                bill_service,
+                type,
+               
+                account_no,
+                
+                amount,
+                currentBalance
+            })
+            
+            if (error) {
+                showError(error)
+                return false
+            }
+            return true
 
-    }
+        }else{
+            const error = billPayValidation({
+                type
+               
+            })
+            
+            if (error) {
+                showError(error)
+                return false
+            }
+            return true
 
-    const isValidData = () => {
-        const error = billPayValidation({
-            bill_service,
-            type,
-            month,
-            meter_no,
-            account_no,
-            contact_no,
-            biller_name,
-            amount,
-            currentBalance
-        })
-        
-        if (error) {
-            showError(error)
-            return false
         }
-        return true
     }
 
 
     const onSend = async () => {
-        console.log(state);
+        console.log(type);
       
        
        
-        const checkValid = isValidData()
+        const checkValid = isValidData(type)
         
         if (checkValid) {
             updateState({ isLoading: true })
             try {
+
+                let result;
                
                
-                const result = await actions.placeBankingOrder({
+               if(type==='prepaid'){
+                result = await actions.placeBillPayOrder({
                     bill_service,
                     type,
                     month,
@@ -105,6 +132,28 @@ const BillPay = () => {
 
                 })
                 
+                
+               }else if(type==='postpaid'){
+                result = await actions.placeBillPayOrder({
+                    bill_service,
+                    type,
+                    
+                    account_no,
+                    
+                    amount,
+                    sender_username: username,
+                    sender_email:email,
+                    sender_phone:phone,
+                    status: 'pending'
+
+
+
+
+                })
+
+               }
+
+               
 
                 
 
@@ -112,18 +161,19 @@ const BillPay = () => {
 
                 
                 if(result[0]==='billpay-order-success'){
+                    console.log('huuuuu');
                    
                   
                     
-                    addSingleTransactionState(result[1])
-                    updateState({ isLoading: false })
-                    showSuccess('Order placed Successfully')
+                addSingleTransactionState(result[1])
+                updateState({ isLoading: false })
+                //     showSuccess('Order placed Successfully')
                     
                     
-                   navigation.navigate('Home')
-                }else{
-                    showError(result[0])
-                    updateState({ isLoading: false })
+                //    navigation.navigate('Home')
+                // }else{
+                //     showError(result[0])
+                //     updateState({ isLoading: false })
                 }
                     
                
@@ -149,9 +199,145 @@ const BillPay = () => {
 
 
     return (
-        <View style={styles.container}>
-            <Text>MyComponent</Text>
-        </View>
+
+       <ScrollView showsVerticalScrollIndicator={false}>
+       <View style={styles.container}>
+       <SelectDropdown
+        buttonStyle={{width:'100%',marginBottom:15}}
+        defaultButtonText= 'Select Bill Type'
+            data={typeData}
+            onSelect={(type, index) => {
+                updateState({ type })
+	}}
+
+    buttonTextAfterSelection={(selectedItem, index) => {
+		// text represented after item is selected
+		// if data array is an array of objects then return selectedItem.property to render after item is selected
+		return selectedItem
+	}}
+
+    rowTextForSelection={(item, index) => {
+		// text represented for each item in dropdown
+		// if data array is an array of objects then return item.property to represent item in dropdown
+		return item
+	}}
+        />
+       <SelectDropdown
+        buttonStyle={{width:'100%',marginBottom:15}}
+        defaultButtonText= 'Bill Service'
+            data={billData}
+            onSelect={(bill_service, index) => {
+                updateState({ bill_service })
+	}}
+
+    buttonTextAfterSelection={(selectedItem, index) => {
+		// text represented after item is selected
+		// if data array is an array of objects then return selectedItem.property to render after item is selected
+		return selectedItem
+	}}
+
+    rowTextForSelection={(item, index) => {
+		// text represented for each item in dropdown
+		// if data array is an array of objects then return item.property to represent item in dropdown
+		return item
+	}}
+        />
+       
+        {
+            type==='prepaid'? 
+            <SelectDropdown
+        buttonStyle={{width:'100%',marginBottom:15}}
+        defaultButtonText= 'Month'
+            data={monthData}
+            onSelect={(month, index) => {
+                updateState({ month })
+	}}
+
+    buttonTextAfterSelection={(selectedItem, index) => {
+		// text represented after item is selected
+		// if data array is an array of objects then return selectedItem.property to render after item is selected
+		return selectedItem
+	}}
+
+    rowTextForSelection={(item, index) => {
+		// text represented for each item in dropdown
+		// if data array is an array of objects then return item.property to represent item in dropdown
+		return item
+	}}
+        />
+        :
+        ''
+
+        }
+
+
+        {
+            type==='prepaid'? 
+            <TextInputWithLabels
+            label="bill Meter No"
+            placeHolder="Enter bill Meter No"
+            onChangeText={(meter_no) => updateState({ meter_no })}
+            
+        />
+        :
+        ''
+
+        }
+
+        <TextInputWithLabels
+            label="bill Account No"
+            placeHolder="Enter bill Account No"
+            onChangeText={(account_no) => updateState({ account_no })}
+            
+        />
+
+{
+            type==='prepaid'? 
+            <TextInputWithLabels
+            label="bill Contact No"
+            placeHolder="Enter bill Contact No"
+            onChangeText={(contact_no) => updateState({ contact_no })}
+            
+        />
+        :
+        ''
+
+        }
+
+        {
+            type==='prepaid'? 
+            <TextInputWithLabels
+            label="Biller Name"
+            placeHolder="Enter biller name"
+            onChangeText={(biller_name) => updateState({ biller_name })}
+            
+        />
+        :
+        ''
+
+        }
+
+        <TextInputWithLabels
+            label="Bill Amount"
+            placeHolder="Enter Bill Amount"
+            onChangeText={(amount) => updateState({ amount })}
+            
+        />
+
+<ButtonWithLoader text="Send Now" onPress={()=>onSend()} isLoading={isLoading}/>
+
+
+
+
+
+
+       </View>
+
+       </ScrollView>
+        
+       
+        
+        
     );
 };
 

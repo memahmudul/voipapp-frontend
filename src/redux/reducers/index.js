@@ -5,10 +5,11 @@ import balance from "./balance";
 import transaction from "./transaction";
 
 
+
 const appReducer = combineReducers({
     auth,
     balance,
-    transaction
+    transaction,
 })
 
 // const rootReducer = (state, action) => {
