@@ -4,44 +4,36 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ButtonWithLoader from '../../components/ButtonWithLoader';
 import TextInputWithLabels from '../../components/TextInputWithLabel';
-import { validation } from '../../utils/validations';
+import { SignupFirstValidation } from '../../utils/validations';
 import { showError } from '../../utils/helperFunction';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ScrollView } from 'react-native-gesture-handler';
 import actions from '../../redux/actions';
+
+
+
 
 
 
 // create a component
 const Signup = ({navigation}) => {
+
+    
     const [state, setState] = useState({
         isLoading: false,
         name: '',
-        country:'BD',
         username: '',
         phone: '',
         email: '',
-        password: '',
-        confirmPassword: "",
-        role:'user',
-        pin:'',
-        confirmPin:'',
-        isSecure: true
     })
-    const { name,username,country, phone,email, password,confirmPassword,role, isSecure,isLoading,pin,confirmPin } = state
+    const { name,username, phone,email,isLoading } = state
     const updateState = (data) => setState(() => ({ ...state, ...data }))
 
 
     const isValidData = () => {
-        const error = validation({
+        const error = SignupFirstValidation({
             name,
             username,
             phone,
             email,
-            password,
-            confirmPassword,
-            pin,
-            confirmPin
         })
         if (error) {
             showError(error)
@@ -56,109 +48,66 @@ const Signup = ({navigation}) => {
         if (checkValid) {
             updateState({ isLoading: true })
             try {
-                const result = await actions.signup({
+                const result = await actions.signupfirstpage({
                     name,
                     username,
-                    country,
                     phone,
-                    email,
-                    password,
-                    pin,
-                    role
+                    email
 
                 })
                 
-                if(result==='signup-success'){
+                if(result==='signup-first-page-validation-success'){
+                    console.log('success');
                     updateState({ isLoading: false })
-                    navigation.navigate('Login')
+                    navigation.navigate('SignupNext',{name,username,phone,email})
                 }else{
                     showError(result)
                     updateState({ isLoading: false })
                 }
-                    
-               
-
                 
-                
-                
-                
-                
-               
             } catch (error) {
-                console.log("error raised")
-                showError(error.message)
-                updateState({ isLoading: false })
+                
             }
            
-            
-
-            
         }
+          
     }
     return (
         <View style={styles.container}>
         <SafeAreaView>
-        <ScrollView>
+       
+        
         <TextInputWithLabels
-            label="Name"
-            placeHolder="enter your full name"
+            label="রিসেলারের নাম"
+            placeHolder="আপনার নাম টাইপ করুন"
             onChangeText={(name) => updateState({ name })}
             
         />
         <TextInputWithLabels
-            label="Username"
-            placeHolder="enter username"
+            label="রিসেলারের ইউজার নেম"
+            placeHolder="আপনার ইউজার নেম টাইপ করুন"
             onChangeText={(username) => updateState({ username })}
             
         />
         <TextInputWithLabels
-            label="Phone"
-            placeHolder="enter your phone number"
+            label="রিসেলারের ফোন নাম্বার"
+            placeHolder="আপনার ফোন নাম্বার টাইপ করুন"
             onChangeText={(phone) => updateState({ phone })}
             
         />
         <TextInputWithLabels
-            label="Email"
-            placeHolder="enter your email"
+            label="রিসেলারের ইমেইল"
+            placeHolder="আপনার ইমেইল টাইপ করুন"
             onChangeText={(email) => updateState({ email })}
             
         />
-        <TextInputWithLabels
-            label="Password"
-            placeHolder="enter your password"
-            isSecure={isSecure}
-            onChangeText={(password) => updateState({ password })}
-           
-            
-        />
-        <TextInputWithLabels
-            label="Confirm Password"
-            placeHolder="enter your password again"
-            isSecure={isSecure}
-            onChangeText={(confirmPassword) => updateState({ confirmPassword })}
-           
-            
-        />
-
-<TextInputWithLabels
-            label="Pin"
-            placeHolder="Enter your pin"
-            isSecure={isSecure}
-            onChangeText={(pin) => updateState({ pin })}
-           
-            
-        />
-        <TextInputWithLabels
-            label="Confirm Pin"
-            placeHolder="Enter your confirm pin"
-            isSecure={isSecure}
-            onChangeText={(confirmPin) => updateState({ confirmPin })}
-           
-            
-        />
-        <ButtonWithLoader text="Sign Up" onPress={onSignUp} isLoading={isLoading}/>
-        <TouchableOpacity onPress={()=> navigation.navigate('Login')}><Text>LOG IN</Text></TouchableOpacity>
-        </ScrollView>
+       
+        <ButtonWithLoader text="পরবর্তী পেজে যান" onPress={onSignUp} isLoading={isLoading}/>
+      <View style={{display:'flex',flexDirection:'row',justifyContent:'center',marginTop:10}}>
+      <Text style={{fontFamily:'Li Sirajee Sanjar Unicode'}}>অলরেডি একাউন্ট আছে?  </Text>
+      <TouchableOpacity onPress={()=> navigation.navigate('Login')}><Text style={{fontFamily:'Li Sirajee Sanjar Unicode',fontSize:16,color:'#EE2424'}}>এখানে লগইন করুন</Text></TouchableOpacity>
+      </View>
+       
         
         
           
@@ -173,8 +122,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 24,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        
+       
     },
+   
 });
 
 //make this component available to the app

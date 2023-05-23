@@ -18,7 +18,8 @@ import { CONFIRM_PIN,
 	FETCH_RECHARGE_TRANSACTION, 
 	GET_OFFER_PACKAGES,
 	PLACE_OFFER_ORDER,
-	FETCH_OFFER_PACKAGE_TRANSACTION } from '../config/urls';
+	FETCH_OFFER_PACKAGE_TRANSACTION,
+	SIGNUP_FIRST_PAGE } from '../config/urls';
 import { showError } from './helperFunction';
 
 
@@ -49,6 +50,16 @@ export async function apiPost(endPoint,data,headers){
 		
 		
 		const result = await axios({method:'post',url:endPoint,headers:headers,data:data})
+
+		if(result.data.success && endPoint==SIGNUP_FIRST_PAGE){
+			
+			return 'signup-first-page-validation-success'
+		
+	}else if(!result.data.success && endPoint==SIGNUP_FIRST_PAGE){
+		
+		return result.data.message
+	
+}
 		
 		
 		

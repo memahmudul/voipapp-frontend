@@ -3,6 +3,9 @@ export const getApiUrl = (endpoint) => API_BASE_URL + endpoint
 
 export const LOGIN = getApiUrl('/auth/login')
 export const SIGNUP = getApiUrl('/auth/register');
+export const SIGNUP_FIRST_PAGE = getApiUrl('/auth/register-first-page');
+
+
 export const CONFIRM_PIN = getApiUrl('/auth/confirmpin');
 export const SET_INITIAL_BALANCE = getApiUrl('/balance/set-initial-balance');
 export const GET_BALANCE = getApiUrl('/balance/get-balance');

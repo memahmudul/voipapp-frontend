@@ -11,24 +11,25 @@ const BottomCard = ({ icon_name,
       
     return (
        
-         <View style={{padding:5, width:'25%'}}>
-          
-          <View style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:5}}>
+         <View style={{padding:5, width:'25%',}}>
           <TouchableOpacity onPress={onPress}>
+          
+          <View style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:5,backgroundColor:'rgba(227, 10, 3,0.8)',minHeight:100,borderRadius:10}}>
+         
 
-         <View style={{height:60,width:60,borderRadius:50,backgroundColor:'rgba(1,156,49,0.2)',display:'flex',alignItems:'center',justifyContent:'center'}}>
-          <Icon.Button style={{marginLeft:10}}  name={icon_name} color='green' backgroundColor="transparent">
+          <Icon.Button style={{fontSize:1,marginLeft:9}}  name={icon_name} color='white' backgroundColor="transparent"  size={30}>
            
            </Icon.Button>
            
            
-         </View>
          
-         </TouchableOpacity>
+         
+         
 
-         <Text style={{fontWeight:'bold',textAlign:'center'}}>{text}</Text>
+         <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',textAlign:'center',fontSize:16,color:'white'}}>{text}</Text>
           
         </View>
+        </TouchableOpacity>
        
          
          </View>

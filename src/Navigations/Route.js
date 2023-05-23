@@ -5,7 +5,7 @@ import { SafeAreaView,Text,View, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 
-import { Login, Signup,VerifyPin,Home,Profile,MobileBanking, BankTransfer,BillPay, Recharge,Offer, BuyOffer } from '..'
+import { Login, Signup,VerifyPin,Home,Profile,MobileBanking, BankTransfer,BillPay, Recharge,Offer, BuyOffer, SignupNext } from '..'
 import TabRoutes from './TabRoutes';
 
 import { useSelector } from 'react-redux';
@@ -29,19 +29,44 @@ export default function Routes({navigation}) {
       
         <SafeAreaView  style={{flex: 1}}>
          <StatusBar
-      backgroundColor= '#060047'
+      backgroundColor= '#E31D25'
     
   />
           <NavigationContainer>
             <Stack.Navigator>
             {!userData.token ? (
         <Stack.Group>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Signup" component={Signup} />
+          <Stack.Screen name="Login" component={Login} options={{
+             headerTintColor: 'white',
+              headerTitle: '',
+              headerRight:()=><Text style={{fontSize:20,color:'white',fontFamily:'Li Sirajee Sanjar Unicode',paddingRight:170}}>লগ ইন</Text>,   
+       headerStyle: {backgroundColor: '#E31D25'},
+
+            }} />
+          <Stack.Screen name="Signup" component={Signup} options={{
+             headerTintColor: 'white',
+              headerTitle: '',
+              headerRight:()=><Text style={{fontSize:20,color:'white',fontFamily:'Li Sirajee Sanjar Unicode',paddingRight:150}}>সাইন আপ</Text>,   
+       headerStyle: {backgroundColor: '#E31D25'},
+
+            }}/>
+          <Stack.Screen name="SignupNext" component={SignupNext} options={{
+             headerTintColor: 'white',
+              headerTitle: '',
+              headerRight:()=><Text style={{fontSize:20,color:'white',fontFamily:'Li Sirajee Sanjar Unicode',paddingRight:170}}>সাইন আপ</Text>,   
+       headerStyle: {backgroundColor: '#E31D25'},
+
+            }}/>
         </Stack.Group>
       ) : (
         <Stack.Group>
-        <Stack.Screen name="VerifyPin" component={VerifyPin} />
+        <Stack.Screen name="VerifyPin" component={VerifyPin} options={{
+             headerTintColor: 'white',
+              headerTitle: '',
+              headerRight:()=><Text style={{fontSize:20,color:'white',fontFamily:'Li Sirajee Sanjar Unicode',paddingRight:150}}>পিন ভেরিফাই</Text>,
+       headerStyle: {backgroundColor: '#E31D25'},
+
+            }}/>
         <Stack.Screen name="TabRoutes" component={TabRoutes} options={{ headerShown: false }} />
         {/* <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Profile" component={Profile} /> */}
@@ -88,8 +113,7 @@ export default function Routes({navigation}) {
               headerTitle: '',
               headerRight:()=><Text style={{fontSize:20,color:'white',fontWeight:'medium',paddingRight:120}}>ACTIVATE OFFER</Text>,   
        headerStyle: {backgroundColor: '#060047'},
-
-            }}  />
+       }}  />
 
             
          

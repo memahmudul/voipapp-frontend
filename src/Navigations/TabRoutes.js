@@ -24,8 +24,10 @@ const TabRoutes = () => {
             backgroundColor: '#060047',
             
           },
+          tabBarLabelStyle:{color:'#DC0905',fontSize:12,fontFamily:'Li Sirajee Sanjar Unicode'},
+          title:'লেনদেন',
                 tabBarIcon:  ({ color, size }) => (
-        <Icon name="history" color='#060047' size={30} />
+        <Icon name="history" color='#DC0905' size={30} o />
       ),
 
             }}
@@ -35,10 +37,12 @@ const TabRoutes = () => {
        headerLeft:()=><ActionBarImage/>,
        headerRight:()=> <ActionBarIcon/>,
        headerStyle: {
-            backgroundColor: '#060047',
+            backgroundColor: '#E31D25',
           },
+          tabBarLabelStyle:{color:'#DC0905',fontSize:12,fontFamily:'Li Sirajee Sanjar Unicode'},
+          title:'হোম',
           tabBarIcon:  ({ color, size }) => (
-        <Icon name="home" color='#060047' size={30} />
+        <Icon name="home" color='#DC0905' size={30} />
       ),
         }}/>
             <BottomTab.Screen name="Profile" component={Profile} options={{
@@ -46,16 +50,20 @@ const TabRoutes = () => {
        headerLeft:()=><ActionBarImage/>,
        headerRight:()=> <ProfileActionBarIcon/>,
        headerStyle: {
-            backgroundColor: '#060047',
+            backgroundColor: '#DC0905',
           },
+          tabBarLabelStyle:{color:'#DC0905',fontSize:12,fontFamily:'Li Sirajee Sanjar Unicode'},
+          title:'প্রোফাইল',
                 tabBarIcon:  ({ color, size }) => (
-        <Icon name="user" color='#060047' size={30} />
+        <Icon name="user" color='#DC0905' size={30} />
       ),
 
             }} />
             <BottomTab.Screen name="Settings" component={Settings} options={{
+              tabBarLabelStyle:{color:'#DC0905',fontSize:12,fontFamily:'Li Sirajee Sanjar Unicode'},
+          title:'সেটিংস',
                 tabBarIcon:  ({ color, size }) => (
-        <Icon name="gear" color='#060047' size={30} />
+        <Icon name="gear" color='#DC0905' size={30} />
       ),
 
             }} />

@@ -20,18 +20,21 @@ const ButtonWithLoader = ({ isLoading,
 const styles = StyleSheet.create({
     btnStyle: {
         height: 48,
-        backgroundColor: 'blue',
+        backgroundColor: '#E31D25',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 10,
+        borderRadius: 30,
         paddingHorizontal: 30,
-        marginTop: 30
+        marginTop: 20,
+        
+        
     },
     textStyle: {
-        fontSize: 16,
+        fontSize: 20,
         textTransform: 'uppercase',
-        fontWeight: 'bold',
-        color: 'white'
+        
+        color: 'white',
+        fontFamily:'Li Sirajee Sanjar Unicode',
     }
 });
 

@@ -1,0 +1,53 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Li Hasan Jolchobi Unicode Bold.ttf",
+      "sha1": "bb4d8625715df72eabe99d32ea5baa3d17cb3ecc"
+    },
+    {
+      "path": "src/assets/fonts/Li Hasan Jolchobi Unicode.ttf",
+      "sha1": "ca0a0ea52d89bb796127777d45910ea2cb1b929e"
+    },
+    {
+      "path": "src/assets/fonts/Li Mayukh Unicode.ttf",
+      "sha1": "202126639d8447b38e6e8c17ef3678f73ae65cd8"
+    },
+    {
+      "path": "src/assets/fonts/Li Sirajee Sanjar Unicode.ttf",
+      "sha1": "9cb0357daad50f361c0fde98bcdb5ce412d23453"
+    },
+    {
+      "path": "src/assets/fonts/OFL.txt",
+      "sha1": "8d6c34b70e3d638c82d7b5aba3f847f7d6d2c831"
+    },
+    {
+      "path": "src/assets/fonts/Poppins-Bold.ttf",
+      "sha1": "3bc8164396c3e6c1e4fae0cf2a51ea66381c1c2d"
+    },
+    {
+      "path": "src/assets/fonts/Poppins-Medium.ttf",
+      "sha1": "cf83e7582e60ed83f67c7d68b4f7482ac9fc6958"
+    },
+    {
+      "path": "src/assets/fonts/Poppins-Regular.ttf",
+      "sha1": "52f9413b264e8ecefbbf12830e3dfadebbf72986"
+    },
+    {
+      "path": "src/assets/fonts/Poppins-SemiBold.ttf",
+      "sha1": "bb68fa19e20495d26a20308b90712bd2c6150642"
+    },
+    {
+      "path": "src/assets/fonts/Roboto-Bold.ttf",
+      "sha1": "3a4a7ff4fdba5317d6941e2d66e629df6c3c8cf3"
+    },
+    {
+      "path": "src/assets/fonts/Roboto-Medium.ttf",
+      "sha1": "b5ba3632933756e9f7e8a0f83bfe90c215a768e2"
+    },
+    {
+      "path": "src/assets/fonts/Roboto-Regular.ttf",
+      "sha1": "ba879317acdc045b8fa78cb8f948650627d0477c"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component,useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet} from 'react-native';
 import ButtonWithLoader from '../../components/ButtonWithLoader';
 import TextInputWithLabels from '../../components/TextInputWithLabel';
 import { validation } from '../../utils/validations';
@@ -9,6 +9,7 @@ import actions from '../../redux/actions';
 
 import { useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // create a component
 const VerifyPin = ({ navigation }) => {
@@ -82,14 +83,18 @@ const VerifyPin = ({ navigation }) => {
     }
     return (
         <View style={styles.container}>
-            <TextInputWithLabels
-                label="Enter Pin"
-                placeHolder="enter your 6 digit pin"
+        <SafeAreaView>
+        <TextInputWithLabels
+                label="পিন"
+                placeHolder="আপনার ৬ ডিজিট পিন টাইপ করুন"
+                keyboardType='numeric'
                 onChangeText={(pin) => updateState({ pin })}
                 
             />
-            <ButtonWithLoader text="Confirm" onPress={onConfirm} isLoading={isLoading}/>
-            <TouchableOpacity onPress={onLogout}><Text>LOGOUT</Text></TouchableOpacity>
+            <ButtonWithLoader text="কনফার্ম" onPress={onConfirm} isLoading={isLoading}/>
+            <TouchableOpacity onPress={onLogout}><Text style={{fontFamily:'Li Sirajee Sanjar Unicode',fontSize:16,color:'#EE2424',textAlign:'center'}}>লগ আউট করুন</Text></TouchableOpacity>
+        </SafeAreaView>
+           
         </View>
     );
 };
@@ -98,9 +103,9 @@ const VerifyPin = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#2c3e50',
+        flex: 1,
+        padding: 24,
+        backgroundColor: 'white',
     },
 });
 

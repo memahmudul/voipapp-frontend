@@ -17,7 +17,7 @@ const checkEmpty = (val, key) => {
 
 const checkMinLength = (val, minLength, key) => {
     if (val.trim().length < minLength) {
-        return `${key} must be at least ${minLength} character long`
+        return `${key} অবশ্যই ${minLength} ক্যারেক্টার হতে হবে।`
     } else {
         return '';
     }
@@ -25,7 +25,7 @@ const checkMinLength = (val, minLength, key) => {
 
 const checkMaxLength = (val, maxLength, key) => {
     if (val.trim().length > maxLength) {
-        return `${key} can not exceed ${maxLength} character`
+        return `${key}  ${maxLength} ক্যারেক্টারের বেশি হতে পারবেনা।`
     } else {
         return '';
     }
@@ -41,6 +41,64 @@ const checkIsNum = (val,key)=>{
    }
 
 }
+
+
+export const SignupFirstValidation = (data)=>{
+    const {  name,username,phone,email} = data
+     
+    if(name!==undefined){
+        let emptyValidationText = checkEmpty(name, 'আপনার নাম লিখুন')
+        if(emptyValidationText!==''){
+            return emptyValidationText;
+
+        }
+    }
+
+    if (username !== undefined) {
+        let emptyValidationText = checkEmpty(username, 'আপনার ইউজারনেম লিখুন')
+        if (emptyValidationText !== '') {
+            return emptyValidationText;
+        } else {
+            let minLengthValidation = checkMinLength(username, 3, 'username')
+            if (minLengthValidation !== '') {
+                return minLengthValidation
+            }
+        }
+    }
+
+    if (phone !== undefined) {
+        let emptyValidationText = checkEmpty(phone, 'আপনার ফোন নাম্বার লিখুন')
+        if (emptyValidationText !== '') {
+            return emptyValidationText;
+        } else {
+          
+
+  
+
+            if(!validate(phone)){
+                return `দয়া করে একটি ভ্যালিড নাম্বার টাইপ করুন`
+        
+            }
+        
+        }
+    }
+
+
+
+
+    if (email !== undefined) {
+        let emptyValidationText = checkEmpty(email, 'আপনার ইমেইল লিখুন')
+        if (emptyValidationText !== '') {
+            return emptyValidationText;
+        } else {
+            if (!validator.email(email)) {
+                return 'ইমেইল ফরম্যাট সঠিক নয়।'
+            }
+        }
+    }
+
+}
+
 
 
 
@@ -96,11 +154,11 @@ export const validation = (data) =>{
 
 
     if (password !== undefined) {
-        let emptyValidationText = checkEmpty(password, 'Please enter your password')
+        let emptyValidationText = checkEmpty(password, 'আপনার পাসওয়ার্ড টাইপ করুন')
         if (emptyValidationText !== '') {
             return emptyValidationText;
         } else {
-            let minLengthValidation = checkMinLength(password, 6, 'password')
+            let minLengthValidation = checkMinLength(password, 6, 'পাসওয়ার্ড')
             if (minLengthValidation !== '') {
                 return minLengthValidation
             }
@@ -108,28 +166,28 @@ export const validation = (data) =>{
     }
 
     if (confirmPassword !== undefined) {
-        let emptyValidationText = checkEmpty(confirmPassword, 'Please enter your confirm password')
+        let emptyValidationText = checkEmpty(confirmPassword, 'কনফার্ম পাসওয়ার্ড টাইপ করুন')
         if (emptyValidationText !== '') {
             return emptyValidationText;
         } 
 
-            let minLengthValidation = checkMinLength(confirmPassword, 6, 'confirm password')
+            let minLengthValidation = checkMinLength(confirmPassword, 6, 'কনফার্ম পাসওয়ার্ড')
             if (minLengthValidation !== '') {
                 return minLengthValidation
             }
 
             if(confirmPassword!==password){
-                return 'Confirm Passowrd does not match'
+                return 'পাসওয়ার্ড ও কনফার্ম পাসওয়ার্ড ম্যাচ করেনি।'
             }
        
     }
 
     if (pin !== undefined) {
-        let emptyValidationText = checkEmpty(pin, 'Please enter your pin')
+        let emptyValidationText = checkEmpty(pin, 'আপনার পিন টাইপ করুন')
         if (emptyValidationText !== '') {
             return emptyValidationText;
         } else { 
-            let minLengthValidation = checkMinLength(pin, 6, 'pin')
+            let minLengthValidation = checkMinLength(pin, 6, 'পিন')
             if (minLengthValidation !== '') {
                 return minLengthValidation
             }
@@ -138,17 +196,17 @@ export const validation = (data) =>{
 
 
     if (confirmPin !== undefined) {
-        let emptyValidationText = checkEmpty(confirmPin, 'Please Confirm your pin')
+        let emptyValidationText = checkEmpty(confirmPin, 'আপনার পিন কনফার্ম করুন')
         if (emptyValidationText !== '') {
             return emptyValidationText;
         } 
-            let minLengthValidation = checkMinLength(pin, 6, 'confirm pin')
+            let minLengthValidation = checkMinLength(pin, 6, 'কনফার্ম পিন')
             if (minLengthValidation !== '') {
                 return minLengthValidation
             }
 
             if(confirmPin!==pin){
-                return 'confirm pin does not match'
+                return 'কনফার্ম পিন ম্যাচ করছেনা'
             }
         
     }
@@ -482,7 +540,7 @@ export const activateOfferValidation = (data)=>{
         }
 
         const validation_object = operator(recipient)
-        console.log(`the operator from validfation is ${operators}`);
+      
         
 
         const temp = validation_object.operator

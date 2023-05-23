@@ -59,7 +59,7 @@ const Login = ({ navigation }) => {
 		
         
 		saveUserData(login_result[1])
-        showSuccess('Log in Success')
+        showSuccess('লগইন সাকসেস')
         updateState({ isLoading: false }) //to update state so that everything gets rendered
                 }else{
                     
@@ -93,21 +93,24 @@ const Login = ({ navigation }) => {
         <View style={styles.container}>
             <SafeAreaView>
             <TextInputWithLabels
-                label="Email"
-                placeHolder="enter your email"
+                label="ইমেইল"
+                placeHolder="আপনার ইমেইল টাইপ করুন"
                 onChangeText={(email) => updateState({ email })}
                 
             />
             <TextInputWithLabels
-                label="Password"
-                placeHolder="enter your password"
+                label="পাসওয়ার্ড"
+                placeHolder="আপনার পাসওয়ার্ড টাইপ করুন"
                 isSecure={isSecure}
                 onChangeText={(password) => updateState({ password })}
                
                 
             />
-            <ButtonWithLoader text="Login" onPress={onLogin} isLoading={isLoading}/>
-            <TouchableOpacity onPress={()=> navigation.navigate('Signup')}><Text>SIGN UP</Text></TouchableOpacity>
+            <ButtonWithLoader text="লগইন করুন" onPress={onLogin} isLoading={isLoading}/>
+            <View style={{display:'flex',flexDirection:'row',justifyContent:'center',marginTop:10}}>
+      <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',fontSize:16}}>একাউন্ট নেই?  </Text>
+      <TouchableOpacity onPress={()=> navigation.navigate('Signup')}><Text style={{fontFamily:'Li Sirajee Sanjar Unicode',fontSize:16,color:'#EE2424'}}>এখানে সাইন আপ করুন</Text></TouchableOpacity>
+      </View>
             
             
               

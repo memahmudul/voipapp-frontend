@@ -1,6 +1,7 @@
 //Auth Screen
 export {default as Login} from './Screens/Login/Login';
 export {default as Signup} from './Screens/Signup/Signup';
+export {default as SignupNext} from './Screens/Signup/SignupNext';
 
 //rest screens
 export {default as Home} from './Screens/Home/Home';

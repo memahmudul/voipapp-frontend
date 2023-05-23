@@ -14,6 +14,10 @@ import { useSelector } from 'react-redux';
 
 import { updateBalanceState } from '../../redux/actions/balance';
 import { showError } from '../../utils/helperFunction';
+import { SliderBox } from "react-native-image-slider-box";
+
+
+
 
 // create a component
 const Home = ({navigation}) => {
@@ -25,6 +29,16 @@ const Home = ({navigation}) => {
  
     
     const email = user? user.email : 'demo@gmail.com'
+
+    const images = [
+      "https://source.unsplash.com/1024x768/?nature",
+      "https://source.unsplash.com/1024x768/?water",
+      "https://source.unsplash.com/1024x768/?girl",
+      "https://source.unsplash.com/1024x768/?tree",
+      require('../../assets/airtel.png'),
+      
+
+    ];
 
     // useEffect(()=>{
 
@@ -136,8 +150,8 @@ const Home = ({navigation}) => {
         
         <View style={styles.balance}>
         <View style={styles.left}>
-        <Text style={{color: 'white', fontSize: 10}}>Your Balance</Text>
-        <Text style={{color: 'white', fontSize: 20,fontWeight:'bold'}}>৳ {balance? balance:'0'}</Text>
+        <Text style={styles.textStyle}>আপনার ব্যালেন্স</Text>
+        <Text style={{color: 'white', fontSize: 24,fontWeight:'bold'}}>৳ {balance? balance:'0'}</Text>
 
         </View>
         <TouchableOpacity onPress={onRefresh}>
@@ -145,14 +159,15 @@ const Home = ({navigation}) => {
             
         </TouchableOpacity>
         <View style={styles.right}>
-        <Icon.Button
-            name="credit-card"
-                backgroundColor="#3b5998"
+        <Iconf.Button
+        
+            name="money"
+                backgroundColor="#F58220"
                 onPress={()=>{console.log('icon button working')}}
                 
   >
-            Add Balance
-  </Icon.Button>
+            <Text style={{  fontFamily:'Li Sirajee Sanjar Unicode',color:'white',fontSize:16}}>ব্যালেন্স যুক্ত করুন</Text>
+  </Iconf.Button>
         
 
         </View>
@@ -160,19 +175,23 @@ const Home = ({navigation}) => {
        
 
         </View>
+        
         <View style={styles.mobileBanking}>
         
+        
       <View style={styles.cardShadow}>
+      
         <View style={styles.cardContainer}>
+        <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',fontSize:18,color:'#EE2424'}}>মোবাইল ব্যাংকিং</Text>
         <View style={styles.mobileBankingInside}>
        
-       <MobileBankingCard icon={require("../../assets/bkash.png")} text="bKash" onPress={navigateToMobileBanking} method="bkash"/>
-        <MobileBankingCard icon={require("../../assets/nagad.png")} text="Nagad" onPress={navigateToMobileBanking} method="nagad"/>
-        <MobileBankingCard icon={require("../../assets/rocket.png")} text="Rocket" onPress={navigateToMobileBanking} method="rocket"/>
-        <MobileBankingCard icon={require("../../assets/surecash.jpg")} text="SureCash" onPress={navigateToMobileBanking} method="surecash"/>
-        <MobileBankingCard icon={require("../../assets/mkash.png")} text="mCash" onPress={navigateToMobileBanking} method="mcash"/>
+       <MobileBankingCard icon={require("../../assets/bkash.png")} text="বিকাশ" onPress={navigateToMobileBanking} method="bkash"/>
+        <MobileBankingCard icon={require("../../assets/nagad.png")} text="নগদ" onPress={navigateToMobileBanking} method="nagad"/>
+        <MobileBankingCard icon={require("../../assets/rocket.png")} text="রকেট" onPress={navigateToMobileBanking} method="rocket"/>
+        <MobileBankingCard icon={require("../../assets/surecash.jpg")} text="শিওরক্যাশ" onPress={navigateToMobileBanking} method="surecash"/>
+        <MobileBankingCard icon={require("../../assets/mkash.png")} text="এমক্যাশ" onPress={navigateToMobileBanking} method="mcash"/>
         <MobileBankingCard icon={require("../../assets/ucash.png")} text="uCash" onPress={navigateToMobileBanking} method="ucash"/> 
-         <MobileBankingCard icon={require("../../assets/okwallet.jpg")} text="OKBanking" onPress={navigateToMobileBanking} method="okbanking"/>
+         <MobileBankingCard icon={require("../../assets/okwallet.jpg")} text="OKBank" onPress={navigateToMobileBanking} method="okbanking"/>
        </View>
         </View>
       </View>
@@ -185,11 +204,12 @@ const Home = ({navigation}) => {
         <View style={styles.others}>
         <View style={styles.cardShadow}>
             <View style={styles.cardContainer}>
+            <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',fontSize:18,color:'#EE2424'}}>অন্যান্য সার্ভিস</Text>
             <View style={styles.mobileBankingInside}>
-            <BottomCard text="Bank Transfer" icon_name="bank" onPress={navigateToBankTransfer}/>
-            <BottomCard text="Bill Pay" icon_name="credit-card-alt" onPress={navigateToBillPay}/>
-            <BottomCard text="Recharge" icon_name="mobile-phone" onPress={navigateToRecharge}/>
-            <BottomCard text="Offer Package" icon_name="gift" onPress={navigateToOffer}/>
+            <BottomCard text="ব্যাংক ট্রান্সফার" icon_name="bank" onPress={navigateToBankTransfer}/>
+            <BottomCard text="বিল পে" icon_name="usd" onPress={navigateToBillPay}/>
+            <BottomCard text="ফ্লেক্সিলোড" icon_name="phone-square" onPress={navigateToRecharge}/>
+            <BottomCard text="ড্রাইভ অফার" icon_name="gift" onPress={navigateToOffer}/>
 
             </View>
             
@@ -198,6 +218,14 @@ const Home = ({navigation}) => {
         </View>
 
         </View>
+        <View style={{height:105,overflow:'hidden',borderRadius:10}}>
+        <SliderBox images={images}  dotColor="#DC0905"  autoplay
+  circleLoop />
+        </View>
+        
+
+
+       
 
 
         
@@ -219,8 +247,8 @@ const styles = StyleSheet.create({
        
     },
     balance:{
-        flex: 2,
-        backgroundColor: '#060047',
+        flex: 1,
+        backgroundColor: '#DC0905',
         paddingHorizontal:20,
         // paddingVertical:5,
         flexDirection: 'row',
@@ -231,7 +259,7 @@ const styles = StyleSheet.create({
 
     },
     mobileBanking:{
-        flex: 4.6,
+        flex: 2,
         
         
         
@@ -246,10 +274,12 @@ const styles = StyleSheet.create({
         flexWrap:'wrap',
         
         display:'flex',
+        
 
     },
     others:{
-        flex: 8,
+        flex:1.4,
+        marginTop:10
         
 
     },
@@ -275,6 +305,11 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         padding:10
        },
+       textStyle:{
+        fontFamily:'Li Sirajee Sanjar Unicode',
+        fontSize:16,
+        color:'white'
+       }
    
 });
 

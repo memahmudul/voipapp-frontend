@@ -7,9 +7,12 @@ const TextInputWithLabels = ({label,value,placeHolder,isSecure,onChangeText,...p
     return (
         <View style={{marginBottom: 16}}>
             <Text style={{
-                fontSize: 16,
+                fontSize: 18,
                 marginBottom: 8,
-                fontWeight: 'bold'
+                
+                
+                fontFamily:'Li Sirajee Sanjar Unicode',
+                color:'#E31D25'
             }}>{label}</Text>
             <TextInput
                 value={value}
@@ -29,11 +32,16 @@ const styles = StyleSheet.create({
     inputStyle: {
         height: 48,
         borderWidth: 1,
-        borderColor: 'gray',
-        color: 'black',
-        paddingHorizontal: 16
+        borderColor: '#EE2424',
         
-    }
+        paddingHorizontal: 16,
+        borderRadius:30,
+        fontFamily:'Li Sirajee Sanjar Unicode',
+        fontSize:16
+        
+        
+    },
+   
 });
 
 //make this component available to the app
