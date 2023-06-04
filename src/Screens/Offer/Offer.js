@@ -13,11 +13,11 @@ const Offer = ({navigation}) => {
 
     const [selectedItem, setSelectedItem] = useState(null)
     const selectedData = [
-        {value:'grameenphone',imageLink: require('../../assets/gp.png')},
-        {value:'banglalink',imageLink: require('../../assets/banglalink.png')},
-        {value:'robi',imageLink: require('../../assets/robi.png')},
-        {value:'airtel',imageLink: require('../../assets/airtel.png')},
-        {value:'teletalk',imageLink: require('../../assets/teletalk.png')},
+        {value:'grameenphone',imageLink: require('../../assets/gp.png'),name:'গ্রামীণফোন'},
+        {value:'banglalink',imageLink: require('../../assets/banglalink.png'),name:'বাংলালিংক'},
+        {value:'robi',imageLink: require('../../assets/robi.png'),name:'রবি'},
+        {value:'airtel',imageLink: require('../../assets/airtel.png'),name:'এয়ারটেল'},
+        {value:'teletalk',imageLink: require('../../assets/teletalk.png'),name:'টেলিটক'},
     ]
 
     const [state, setState] = useState({
@@ -102,7 +102,15 @@ const Offer = ({navigation}) => {
             {
                 selectedData.map(item=>{
                     return <Pressable key={item.value} onPress={()=>setSelectedItem(item.value)}>
-                    {item.value===selectedItem?   <Image source={item.imageLink} style={styles.imageStyleSelected}   /> :   <Image source={item.imageLink} style={styles.imageStyle}   />  }
+                    {item.value===selectedItem?   
+                    <View style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+                    <Image source={item.imageLink} style={styles.imageStyleSelected}   />
+                    <Text style={{fontSize:18,fontFamily:'Li Sirajee Sanjar Unicode',marginBottom:10,color:'#E31D25'}}>{item.name}</Text>
+                    </View> :   
+                    <View style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+                    <Image source={item.imageLink} style={styles.imageStyle}   />
+                    <Text style={{fontSize:18,fontFamily:'Li Sirajee Sanjar Unicode',marginBottom:10,color:'#E31D25'}}>{item.name}</Text>
+                    </View>  }
               
                     </Pressable>
                 })
@@ -112,6 +120,8 @@ const Offer = ({navigation}) => {
 
         
            <RadioButtonRN
+            activeColor='#E31D25'
+        textStyle = {{color:'#E31D25',textTransform:'uppercase',fontWeight:'bold'}}
   data={typeData}
   box={true}
 
@@ -126,13 +136,13 @@ result.map((item,index)=>{
           <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
          <View>
          <Text style={{color:'black',fontWeight:'bold'}}>{item.name}</Text>
-         <Text style={{color:'black',fontWeight:'bold'}}>{item.validity}</Text>
+         <Text style={{color:'black',fontWeight:'bold'}}>Validity: {item.validity}</Text>
          </View>
           <Text style={{color:'black',fontWeight:'bold'}}>Tk.{item.price}</Text>
           <Button
   onPress={()=>{  navigation.navigate('BuyOffer', item);}}
   title="Activate"
-  color="#841584"
+  color="#E31D25"
 />
 
           </View>
@@ -153,8 +163,8 @@ result.map((item,index)=>{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 8,
-        backgroundColor: 'gray'
+        padding: 20,
+        backgroundColor: 'white'
         
     },
     radioImageRow:{
@@ -177,7 +187,7 @@ const styles = StyleSheet.create({
         height:50,
         backgroundColor:'white',
         borderRadius:5,
-       borderColor: 'green',
+       borderColor: '#E31D25',
        borderWidth:2
        
     },
@@ -187,7 +197,7 @@ const styles = StyleSheet.create({
         marginBottom:5,
        
         
-        backgroundColor: 'rgba(1, 156, 49, 0.2)',
+        backgroundColor:'rgba(227, 10, 3,0.4)',
         borderRadius:10,
         borderBottomWidth: 2
       },

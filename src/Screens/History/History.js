@@ -21,6 +21,7 @@ const History = () => {
 
     const transactionList = useSelector((state)=> state.transaction.transaction)
     console.log(transactionList);
+    
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);

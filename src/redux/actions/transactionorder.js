@@ -76,9 +76,9 @@ export async function placeMobileBankingOrder(data) {
    const data3 = await apiPost(FETCH_BILL_PAY_TRANSACTION, data)
    const data4 = await apiPost(FETCH_RECHARGE_TRANSACTION, data)
    const data5 = await apiPost(FETCH_OFFER_PACKAGE_TRANSACTION, data)
-   console.log('data 5 is');
 
-    console.log(data5);
+
+
 
 
   
@@ -102,6 +102,16 @@ export async function placeMobileBankingOrder(data) {
       data5=[];
     }
 
+
+    const combinedData = [...data1,...data2,...data3,...data4,...data5]
+    combinedData.sort(
+      function(a, b) {
+        var c = new Date(a.createdAt);
+        var d = new Date(b.createdAt);
+        return c-d;
+    }
+    )
+
     
 
 
@@ -117,31 +127,20 @@ export async function placeMobileBankingOrder(data) {
 
   
     if(data1 || data2 || data3 || data4 || data5){
-      const datax = [...data1,...data2]
-    datax.sort(function(a, b) {
-      var c = new Date(a.createdAt);
-      var d = new Date(b.createdAt);
-      return c-d;
-  });
 
-  const anotherData = [...datax,...data3]
 
-  anotherData.sort(function(a, b) {
+const combinedData = [...data1,...data2,...data3,...data4,...data5]
+combinedData.sort(
+  function(a, b) {
     var c = new Date(a.createdAt);
     var d = new Date(b.createdAt);
     return c-d;
-});
+}
+)
 
-const lastData = [...anotherData,...data4]
-lastData.sort(function(a,b){
-  var c = new Date(a.createdAt);
-  var d = new Date(b.createdAt);
-  return c-d;
 
-})
 
-const finalData = [...lastData,...data5]
-      return ['fetch-all-order-success',finalData.reverse()]
+      return ['fetch-all-order-success',combinedData.reverse()]
     }else{
       return ['error in fetching all data']
 

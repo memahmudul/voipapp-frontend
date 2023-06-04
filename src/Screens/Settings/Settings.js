@@ -29,11 +29,11 @@ const Settings = () => {
            <TouchableOpacity onPress={()=>{}} style={{ display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',}}>
          
           <View style={{ display:'flex',flexDirection:'row',alignItems:'center',}}>
-          <Icon.Button name="headphone"  backgroundColor="transparent" color="black"></Icon.Button>
-          <Text style={{color:'black',fontWeight:'medium',fontSize:18}}>Contact Us</Text>
+          <Icon.Button name="headphone"  backgroundColor="transparent" color="#E31D25"></Icon.Button>
+          <Text style={{color:'#E31D25',fontFamily:'Li Sirajee Sanjar Unicode',fontSize:18}}>যোগাযোগ করুন</Text>
 
           </View>
-          <Iconf.Button name="arrow-right"  backgroundColor="transparent" color="black"></Iconf.Button>
+          <Iconf.Button name="arrow-right"  backgroundColor="transparent" color="#E31D25"></Iconf.Button>
           </TouchableOpacity>
 
           
@@ -43,11 +43,11 @@ const Settings = () => {
            <TouchableOpacity onPress={()=>{}} style={{ display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',}}>
          
            <View style={{ display:'flex',flexDirection:'row',alignItems:'center',}}>
-          <Icon.Button name="persons"  backgroundColor="transparent" color="black"></Icon.Button>
-          <Text style={{color:'black',fontWeight:'medium',fontSize:18}}>Invite Friends</Text>
+          <Icon.Button name="persons"  backgroundColor="transparent" color="#E31D25"></Icon.Button>
+          <Text style={{color:'#E31D25',fontFamily:'Li Sirajee Sanjar Unicode',fontSize:18}}>ইনভাইট ফ্রেন্ডস</Text>
 
           </View>
-          <Iconf.Button name="arrow-right"  backgroundColor="transparent" color="black"></Iconf.Button>
+          <Iconf.Button name="arrow-right"  backgroundColor="transparent" color="#E31D25"></Iconf.Button>
           </TouchableOpacity>
 
           
@@ -57,11 +57,11 @@ const Settings = () => {
            <TouchableOpacity onPress={()=>{}} style={{ display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',}}>
          
            <View style={{ display:'flex',flexDirection:'row',alignItems:'center',}}>
-          <Icon.Button name="facebook"  backgroundColor="transparent" color="black"></Icon.Button>
-          <Text style={{color:'black',fontWeight:'medium',fontSize:18}}>Facebook Page</Text>
+          <Icon.Button name="facebook"  backgroundColor="transparent" color="#E31D25"></Icon.Button>
+          <Text style={{color:'#E31D25',fontFamily:'Li Sirajee Sanjar Unicode',fontSize:18}}>ফেসবুক পেজ</Text>
 
           </View>
-          <Iconf.Button name="arrow-right"  backgroundColor="transparent" color="black"></Iconf.Button>
+          <Iconf.Button name="arrow-right"  backgroundColor="transparent" color="#E31D25"></Iconf.Button>
           </TouchableOpacity>
 
           
@@ -71,11 +71,11 @@ const Settings = () => {
            <TouchableOpacity onPress={loadInBrowser} style={{ display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',}}>
          
            <View style={{ display:'flex',flexDirection:'row',alignItems:'center',}}>
-          <Icon.Button name="world"  backgroundColor="transparent" color="black"></Icon.Button>
-          <Text style={{color:'black',fontWeight:'medium',fontSize:18}}>Website</Text>
+          <Icon.Button name="world"  backgroundColor="transparent" color="#E31D25"></Icon.Button>
+          <Text style={{color:'#E31D25',fontFamily:'Li Sirajee Sanjar Unicode',fontSize:18}}>ওয়েবসাইট</Text>
 
           </View>
-          <Iconf.Button name="arrow-right"  backgroundColor="transparent" color="black"></Iconf.Button>
+          <Iconf.Button name="arrow-right"  backgroundColor="transparent" color="#E31D25"></Iconf.Button>
           </TouchableOpacity>
 
           
@@ -84,11 +84,11 @@ const Settings = () => {
            <TouchableOpacity onPress={onLogout} style={{ display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',}}>
          
            <View style={{ display:'flex',flexDirection:'row',alignItems:'center',}}>
-          <Iconx.Button name="logout"  backgroundColor="transparent" color="black"></Iconx.Button>
-          <Text style={{color:'black',fontWeight:'medium',fontSize:18}}>Sign Out</Text>
+          <Iconx.Button name="logout"  backgroundColor="transparent" color="#E31D25"></Iconx.Button>
+          <Text style={{color:'#E31D25',fontSize:18,fontFamily:'Li Sirajee Sanjar Unicode'}}>সাইন আউট</Text>
 
           </View>
-          <Iconf.Button name="arrow-right"  backgroundColor="transparent" color="black"></Iconf.Button>
+          <Iconf.Button name="arrow-right"  backgroundColor="transparent" color="#E31D25"></Iconf.Button>
           </TouchableOpacity>
 
           
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
         
        
         borderBottomWidth :.3,
-        borderBottomColor: '#808080',
+        borderBottomColor: '#E31D25',
       },
 });
 

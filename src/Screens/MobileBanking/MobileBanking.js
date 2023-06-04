@@ -4,12 +4,14 @@ import { View, Text, StyleSheet,SafeAreaView } from 'react-native';
 import ButtonWithLoader from '../../components/ButtonWithLoader';
 import TextInputWithLabels from '../../components/TextInputWithLabel';
 import SelectDropdown from 'react-native-select-dropdown'
+import Icon from 'react-native-vector-icons/FontAwesome5'
 
 import { validation } from '../../utils/validations.js';
 import { showError,showSuccess } from '../../utils/helperFunction';
 import { useSelector } from 'react-redux';
 import actions from '../../redux/actions';
 import { addSingleTransactionState } from '../../redux/actions/transactionorder';
+
 
 
 // create a component
@@ -30,6 +32,18 @@ const MobileBanking = ({route,navigation}) => {
     const { recipient,amount,type,isLoading,bank} = state
     const currentBalance = useSelector((state)=> state.balance.balance)
     const {email,username,phone} = useSelector((state)=> state.auth.userData.user)
+    const commissionRate = useSelector((state)=> state.commission.commission)
+   
+   const rate = ()=>{
+    for(let i = 0;i<commissionRate.length;i++){
+        if(commissionRate[i].transaction_type==='mobile-banking'){
+            return commissionRate[i].rate
+        }
+    }
+   }
+
+
+
     
     
     const updateState = (data) => setState(() => ({ ...state, ...data }))
@@ -67,7 +81,8 @@ const MobileBanking = ({route,navigation}) => {
                     sender_username: username,
                     sender_email:email,
                     sender_phone:phone,
-                    status: 'pending'
+                    status: 'pending',
+                    commission:rate()
 
 
 
@@ -111,14 +126,34 @@ const MobileBanking = ({route,navigation}) => {
         }
     }
 
+
+    const myIcon  = ()=>{
+        return (
+            <Icon name="arrow-right"  backgroundColor="transparent" color="#E31D25"></Icon>
+        )
+    }
+
     return (
         <View style={styles.container}>
         <SafeAreaView>
-        <Text style={{fontSize:24,fontWeight:'bold' ,marginBottom:10,textTransform:'uppercase',textAlign:'center'}}>{valuefrompreviouspage}</Text>
+        <View>
+            {
+                valuefrompreviouspage==='bkash'? <Text style={{fontSize:30,marginBottom:10,color:'#E31D25',textAlign:'center',fontFamily:'Li Sirajee Sanjar Unicode'}}>বিকাশ</Text>:
+                valuefrompreviouspage==='nagad'? <Text style={{fontSize:30,marginBottom:10,color:'#E31D25',textAlign:'center',fontFamily:'Li Sirajee Sanjar Unicode'}}>নগদ</Text>:
+                valuefrompreviouspage==='rocket'? <Text style={{fontSize:30,marginBottom:10,color:'#E31D25',textAlign:'center',fontFamily:'Li Sirajee Sanjar Unicode'}}>রকেট</Text>:
+                valuefrompreviouspage==='ucash'? <Text style={{fontSize:30,marginBottom:10,color:'#E31D25',textAlign:'center',fontFamily:'Li Sirajee Sanjar Unicode'}}>ইউক্যাশ</Text>:
+                valuefrompreviouspage==='surecash'? <Text style={{fontSize:30,marginBottom:10,color:'#E31D25',textAlign:'center',fontFamily:'Li Sirajee Sanjar Unicode'}}>শিওরক্যাশ</Text>:
+                valuefrompreviouspage==='mcash'? <Text style={{fontSize:30,marginBottom:10,color:'#E31D25',textAlign:'center',fontFamily:'Li Sirajee Sanjar Unicode'}}>এমক্যাশ</Text>:
+                valuefrompreviouspage==='okbanking'? <Text style={{fontSize:30,marginBottom:10,color:'#E31D25',textAlign:'center',fontFamily:'Li Sirajee Sanjar Unicode'}}>ওকে ব্যাংকিং</Text>:
+                valuefrompreviouspage==='upay'? <Text style={{fontSize:30,marginBottom:10,color:'#E31D25',textAlign:'center',fontFamily:'Li Sirajee Sanjar Unicode'}}>উপায়</Text>:''
+                
+            }
+        </View>
        
         <TextInputWithLabels
-            label="Enter Recipient"
-            placeHolder="eg: 01*********"
+            label="ফোন নাম্বার"
+            placeHolder="01*********"
+            keyboardType='numeric'
             onChangeText={(recipient) => updateState({ recipient })}
             
         />
@@ -147,17 +182,26 @@ const MobileBanking = ({route,navigation}) => {
         /> */}
        
         <TextInputWithLabels
-            label="Amount"
-            placeHolder="eg: 100"
+            label="এমাউন্ট"
+            placeHolder="500"
+            keyboardType='numeric'
             onChangeText={(amount) => updateState({ amount })}
             
         />
-        <Text style={{fontSize:16,fontWeight:'bold' ,marginBottom:10}}>Type</Text>
+        <Text style={{fontSize:18,fontFamily:'Li Sirajee Sanjar Unicode',marginBottom:10,color:'#E31D25'}}>পেমেন্ট টাইপ</Text>
 
 
         <SelectDropdown
-        buttonStyle={{width:'100%',marginBottom:15}}
-        defaultButtonText="Select A Type"
+        buttonStyle={{width:'100%',marginBottom:15,backgroundColor:'#E31D25',borderRadius:10}}
+        buttonTextStyle={{color:'white',fontFamily:'Li Sirajee Sanjar Unicode'}}
+        renderDropdownIcon = {
+            ()=>{
+                return <Icon name="angle-down"  backgroundColor="transparent" color="white" size={25}></Icon>
+            }
+        }
+        dropdownStyle={{backgroundColor:'#E31D25',color:'white'}}
+        rowTextStyle={{color:'white'}}
+        defaultButtonText="সিলেক্ট করুন"
             data={typeSelect}
             onSelect={(type, index) => {
                 updateState({ type })
@@ -177,7 +221,7 @@ const MobileBanking = ({route,navigation}) => {
         />
         
         
-        <ButtonWithLoader text="Send Now" onPress={()=>onSend()} isLoading={isLoading}/>
+        <ButtonWithLoader text="সেন্ড করুন" onPress={()=>onSend()} isLoading={isLoading}/>
        
       
         

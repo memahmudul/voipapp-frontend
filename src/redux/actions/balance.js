@@ -1,4 +1,4 @@
-import { GET_BALANCE } from "../../config/urls"
+import { GET_BALANCE,ADD_BALANCE_REQUEST } from "../../config/urls"
 import types from "../types";
 
 import { apiPost } from "../../utils/utils";
@@ -20,3 +20,9 @@ export async function getBalance(data) {
     return apiPost(GET_BALANCE, data)
        
   }
+
+  
+export async function addBalanceRequest(data) {
+  return apiPost(ADD_BALANCE_REQUEST, data)
+     
+}

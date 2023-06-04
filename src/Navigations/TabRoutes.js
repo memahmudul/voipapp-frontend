@@ -5,6 +5,7 @@ import ActionBarImage from '../Screens/Home/ActionBarImage';
 import ActionBarIcon from '../Screens/Home/ActionBarIcon';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ProfileActionBarIcon from '../Screens/Profile/ProfileActionBarIcon';
+import { View, Text, StyleSheet,Image } from 'react-native';
 
 
 const BottomTab = createBottomTabNavigator();
@@ -17,17 +18,22 @@ const TabRoutes = () => {
         >
         <BottomTab.Screen name="History" component={History}
         options={{
-          headerTitle: 'Swipe Down To Refresh',
+          headerTitle: 'রিফ্রেশ করার জন্য নিচের দিকে টানুন',
           headerTintColor:'white',
+          headerRight:()=><View style={{paddingRight:15}}><Icon name="arrow-down" color='white' size={30}  /></View>,
          
           headerStyle: {
-            backgroundColor: '#060047',
+            backgroundColor: '#E31D25',
             
+            
+          },
+          headerTitleStyle: {
+            fontFamily:'Li Sirajee Sanjar Unicode'
           },
           tabBarLabelStyle:{color:'#DC0905',fontSize:12,fontFamily:'Li Sirajee Sanjar Unicode'},
           title:'লেনদেন',
                 tabBarIcon:  ({ color, size }) => (
-        <Icon name="history" color='#DC0905' size={30} o />
+        <Icon name="history" color='#DC0905' size={30}  />
       ),
 
             }}
@@ -50,7 +56,7 @@ const TabRoutes = () => {
        headerLeft:()=><ActionBarImage/>,
        headerRight:()=> <ProfileActionBarIcon/>,
        headerStyle: {
-            backgroundColor: '#DC0905',
+            backgroundColor: '#E31D25',
           },
           tabBarLabelStyle:{color:'#DC0905',fontSize:12,fontFamily:'Li Sirajee Sanjar Unicode'},
           title:'প্রোফাইল',
@@ -60,7 +66,19 @@ const TabRoutes = () => {
 
             }} />
             <BottomTab.Screen name="Settings" component={Settings} options={{
-              tabBarLabelStyle:{color:'#DC0905',fontSize:12,fontFamily:'Li Sirajee Sanjar Unicode'},
+              headerTitle: 'সেটিংস',
+          headerTintColor:'white',
+         
+         
+          headerStyle: {
+            backgroundColor: '#E31D25',
+            
+            
+          },
+          headerTitleStyle: {
+            fontFamily:'Li Sirajee Sanjar Unicode'
+          },
+              tabBarLabelStyle:{color:'#E31D25',fontSize:12,fontFamily:'Li Sirajee Sanjar Unicode'},
           title:'সেটিংস',
                 tabBarIcon:  ({ color, size }) => (
         <Icon name="gear" color='#DC0905' size={30} />

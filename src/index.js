@@ -15,3 +15,4 @@ export {default as BillPay} from './Screens/BillPay/BillPay';
 export {default as Recharge} from './Screens/Recharge/Recharge';
 export {default as Offer} from './Screens/Offer/Offer';
 export {default as BuyOffer} from './Screens/Offer/BuyOffer';
+export {default as AddBalance} from './Screens/AddBalance/AddBalance';

@@ -3,6 +3,7 @@ import React, {useState } from 'react';
 import { View, Text, StyleSheet,SafeAreaView,ScrollView } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown'
 import ButtonWithLoader from '../../components/ButtonWithLoader';
+import Icon from 'react-native-vector-icons/FontAwesome5'
 import TextInputWithLabels from '../../components/TextInputWithLabel';
 import RadioButtonRN from 'radio-buttons-react-native';
 import { bankTransferValidation } from '../../utils/validations';
@@ -40,6 +41,15 @@ const BankTransfer = ({navigation}) => {
     const updateState = (data) => setState(() => ({ ...state, ...data }))
     const {email,username,phone} = useSelector((state)=> state.auth.userData.user)
     const currentBalance = useSelector((state)=> state.balance.balance)
+    const commissionRate = useSelector((state)=> state.commission.commission)
+   
+   const rate = ()=>{
+    for(let i = 0;i<commissionRate.length;i++){
+        if(commissionRate[i].transaction_type==='bank-transfer'){
+            return commissionRate[i].rate
+        }
+    }
+   }
 
     const updateTypeState = (data)=>{
         const type = data.label
@@ -95,7 +105,8 @@ const BankTransfer = ({navigation}) => {
                     sender_username: username,
                     sender_email:email,
                     sender_phone:phone,
-                    status: 'pending'
+                    status: 'pending',
+                    commission:rate()
 
 
 
@@ -149,11 +160,22 @@ const BankTransfer = ({navigation}) => {
        
         
 
-<Text style={{fontSize:16,fontWeight:'bold' ,marginBottom:10}}>Select Bank</Text>
+<Text style={{fontSize:18,fontFamily:'Li Sirajee Sanjar Unicode',marginBottom:10,color:'#E31D25'}}>ব্যাংক</Text>
 
+
+
+        
 <SelectDropdown
-        buttonStyle={{width:'100%',marginBottom:15}}
-        defaultButtonText= 'Click to select a bank'
+        buttonStyle={{width:'100%',marginBottom:15,backgroundColor:'#E31D25',borderRadius:10}}
+        buttonTextStyle={{color:'white',fontFamily:'Li Sirajee Sanjar Unicode'}}
+        renderDropdownIcon = {
+            ()=>{
+                return <Icon name="angle-down"  backgroundColor="transparent" color="white" size={25}></Icon>
+            }
+        }
+        dropdownStyle={{backgroundColor:'#E31D25',color:'white'}}
+        rowTextStyle={{color:'white'}}
+        defaultButtonText="ব্যাংক সিলেক্ট করুন"
             data={bankData}
             onSelect={(bank, index) => {
                 updateState({ bank })
@@ -173,20 +195,21 @@ const BankTransfer = ({navigation}) => {
         />
 
 <TextInputWithLabels
-            label="Branch"
-            placeHolder="Enter Branch"
+            label="ব্রাঞ্চ"
+            placeHolder="ব্রাঞ্চের নাম"
             onChangeText={(branch) => updateState({ branch })}
             
         />
         <TextInputWithLabels
-            label="Account Number"
-            placeHolder="Enter bank a/c no"
+            label="একাউন্ট নাম্বার"
+            placeHolder="ব্যাংক একাউন্ট নাম্বার"
+            keyboardType='numeric'
             onChangeText={(account_no) => updateState({ account_no })}
             
         />
         <TextInputWithLabels
-            label="Account Name"
-            placeHolder="Enter bank a/c name"
+            label="একাউন্টের নাম"
+            placeHolder="ব্যাংক একাউন্ট নেম"
             onChangeText={(account_name) => updateState({ account_name })}
             
         />
@@ -194,13 +217,17 @@ const BankTransfer = ({navigation}) => {
          
        
         <TextInputWithLabels
-            label="Amount"
-            placeHolder="Enter Amount"
+            label="এমাউন্ট"
+            placeHolder="এমাউন্ট টাইপ করুন"
+            keyboardType='numeric'
             onChangeText={(amount) => updateState({ amount })}
             
         />
-         <Text style={{fontSize:16,fontWeight:'bold' ,marginBottom:10}}>Select Type</Text>
+         <Text style={{fontSize:18,fontFamily:'Li Sirajee Sanjar Unicode',marginBottom:10,color:'#E31D25'}}>একাউন্ট টাইপ সিলেক্ট করুন</Text>
         <RadioButtonRN
+     
+        activeColor='#E31D25'
+        textStyle = {{color:'#E31D25',textTransform:'uppercase',fontWeight:'bold'}}
   data={typeData}
   box={false}
   selectedBtn={(type) => updateTypeState(type)}
@@ -212,7 +239,7 @@ const BankTransfer = ({navigation}) => {
         
         
         
-        <ButtonWithLoader text="Send Now" onPress={()=>onSend()} isLoading={isLoading}/>
+        <ButtonWithLoader text="সেন্ড করুন" onPress={()=>onSend()} isLoading={isLoading}/>
        
       
         

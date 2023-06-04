@@ -9,6 +9,8 @@ export const SIGNUP_FIRST_PAGE = getApiUrl('/auth/register-first-page');
 export const CONFIRM_PIN = getApiUrl('/auth/confirmpin');
 export const SET_INITIAL_BALANCE = getApiUrl('/balance/set-initial-balance');
 export const GET_BALANCE = getApiUrl('/balance/get-balance');
+export const ADD_BALANCE_REQUEST = getApiUrl('/balance/add-balance-request');
+
 export const PLACE_MOBILE_BANKING_ORDER = getApiUrl('/order/add-mobile-banking-order');
 export const FETCH_MOBILE_BANKING_TRANSACTION = getApiUrl('/order/get-all-mobile-banking-order');
 export const PLACE_BANKING_ORDER = getApiUrl('/order/add-banking-order');
@@ -21,6 +23,16 @@ export const FETCH_RECHARGE_TRANSACTION = getApiUrl('/order/get-all-recharge-ord
 export const GET_OFFER_PACKAGES = getApiUrl('/offer/get-all-offers');
 export const PLACE_OFFER_ORDER = getApiUrl('/offer/place-offer-order');
 export const FETCH_OFFER_PACKAGE_TRANSACTION = getApiUrl('/order/get-all-offer-order');
+
+
+
+
+
+export const GET_COMMISSION = getApiUrl('/commission/get-commission');
+export const GET_SLIDER_IMAGE = getApiUrl('/slider/get-slider-images');
+export const GET_PAYMENT_METHOD = getApiUrl('/payment/get-payment-method');
+
+
 
 
 

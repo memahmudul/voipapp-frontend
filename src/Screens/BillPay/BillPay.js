@@ -4,6 +4,7 @@ import SelectDropdown from 'react-native-select-dropdown'
 import ButtonWithLoader from '../../components/ButtonWithLoader';
 import TextInputWithLabels from '../../components/TextInputWithLabel';
 import RadioButtonRN from 'radio-buttons-react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5'
 import { showError,showSuccess } from '../../utils/helperFunction';
 import { useSelector } from 'react-redux';
 import actions from '../../redux/actions';
@@ -11,7 +12,7 @@ import { billPayValidation } from '../../utils/validations';
 import { addSingleTransactionState } from '../../redux/actions/transactionorder';
 
 // create a component
-const BillPay = () => {
+const BillPay = ({navigation}) => {
 
     const billData = ["Gas", "Electricity", "Water","Internet","Telephone","TV","Education","Credit Card","others","Western Union"]
     const monthData = ["January", "February", "March","April","May","June","July","August","September","October","November",'December']
@@ -43,6 +44,15 @@ const BillPay = () => {
 
     const {email,username,phone} = useSelector((state)=> state.auth.userData.user)
     const currentBalance = useSelector((state)=> state.balance.balance)
+    const commissionRate = useSelector((state)=> state.commission.commission)
+   
+   const rate = ()=>{
+    for(let i = 0;i<commissionRate.length;i++){
+        if(commissionRate[i].transaction_type==='bill-pay'){
+            return commissionRate[i].rate
+        }
+    }
+   }
     
 
    
@@ -125,7 +135,8 @@ const BillPay = () => {
                     sender_username: username,
                     sender_email:email,
                     sender_phone:phone,
-                    status: 'pending'
+                    status: 'pending',
+                    commission:rate()
 
 
 
@@ -144,7 +155,8 @@ const BillPay = () => {
                     sender_username: username,
                     sender_email:email,
                     sender_phone:phone,
-                    status: 'pending'
+                    status: 'pending',
+                    commission:rate()
 
 
 
@@ -166,14 +178,15 @@ const BillPay = () => {
                   
                     
                 addSingleTransactionState(result[1])
-                updateState({ isLoading: false })
-                //     showSuccess('Order placed Successfully')
+               
+                    showSuccess('Order placed Successfully')
+                    updateState({ isLoading: false })
                     
                     
-                //    navigation.navigate('Home')
-                // }else{
-                //     showError(result[0])
-                //     updateState({ isLoading: false })
+                   navigation.navigate('Home')
+                }else{
+                    showError(result[0])
+                    updateState({ isLoading: false })
                 }
                     
                
@@ -202,9 +215,19 @@ const BillPay = () => {
 
        <ScrollView showsVerticalScrollIndicator={false}>
        <View style={styles.container}>
-       <SelectDropdown
-        buttonStyle={{width:'100%',marginBottom:15}}
-        defaultButtonText= 'Select Bill Type'
+      
+
+<SelectDropdown
+        buttonStyle={{width:'100%',marginBottom:15,backgroundColor:'#E31D25',borderRadius:10}}
+        buttonTextStyle={{color:'white',fontFamily:'Li Sirajee Sanjar Unicode'}}
+        renderDropdownIcon = {
+            ()=>{
+                return <Icon name="angle-down"  backgroundColor="transparent" color="white" size={25}></Icon>
+            }
+        }
+        dropdownStyle={{backgroundColor:'#E31D25',color:'white'}}
+        rowTextStyle={{color:'white'}}
+        defaultButtonText= 'বিলের ধরন সিলেক্ট করুন'
             data={typeData}
             onSelect={(type, index) => {
                 updateState({ type })
@@ -222,9 +245,36 @@ const BillPay = () => {
 		return item
 	}}
         />
-       <SelectDropdown
-        buttonStyle={{width:'100%',marginBottom:15}}
-        defaultButtonText= 'Bill Service'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+<SelectDropdown
+        buttonStyle={{width:'100%',marginBottom:15,backgroundColor:'#E31D25',borderRadius:10}}
+        buttonTextStyle={{color:'white',fontFamily:'Li Sirajee Sanjar Unicode'}}
+        renderDropdownIcon = {
+            ()=>{
+                return <Icon name="angle-down"  backgroundColor="transparent" color="white" size={25}></Icon>
+            }
+        }
+        dropdownStyle={{backgroundColor:'#E31D25',color:'white'}}
+        rowTextStyle={{color:'white'}}
+        defaultButtonText= 'সার্ভিস সিলেক্ট করুন'
             data={billData}
             onSelect={(bill_service, index) => {
                 updateState({ bill_service })
@@ -246,8 +296,16 @@ const BillPay = () => {
         {
             type==='prepaid'? 
             <SelectDropdown
-        buttonStyle={{width:'100%',marginBottom:15}}
-        defaultButtonText= 'Month'
+        buttonStyle={{width:'100%',marginBottom:15,backgroundColor:'#E31D25',borderRadius:10}}
+        buttonTextStyle={{color:'white',fontFamily:'Li Sirajee Sanjar Unicode'}}
+        renderDropdownIcon = {
+            ()=>{
+                return <Icon name="angle-down"  backgroundColor="transparent" color="white" size={25}></Icon>
+            }
+        }
+        dropdownStyle={{backgroundColor:'#E31D25',color:'white'}}
+        rowTextStyle={{color:'white'}}
+        defaultButtonText= 'মাস সিলেক্ট করুন'
             data={monthData}
             onSelect={(month, index) => {
                 updateState({ month })
@@ -265,6 +323,10 @@ const BillPay = () => {
 		return item
 	}}
         />
+
+        
+
+        
         :
         ''
 
@@ -274,8 +336,9 @@ const BillPay = () => {
         {
             type==='prepaid'? 
             <TextInputWithLabels
-            label="bill Meter No"
-            placeHolder="Enter bill Meter No"
+            label="মিটার নং"
+            placeHolder="বিল মিটার নং টাইপ করুন"
+            keyboardType='numeric'
             onChangeText={(meter_no) => updateState({ meter_no })}
             
         />
@@ -285,8 +348,9 @@ const BillPay = () => {
         }
 
         <TextInputWithLabels
-            label="bill Account No"
-            placeHolder="Enter bill Account No"
+            label="একাউন্ট নাম্বার"
+            keyboardType='numeric'
+            placeHolder="বিল একাউন্ট নাম্বার টাইপ করুন"
             onChangeText={(account_no) => updateState({ account_no })}
             
         />
@@ -294,8 +358,9 @@ const BillPay = () => {
 {
             type==='prepaid'? 
             <TextInputWithLabels
-            label="bill Contact No"
-            placeHolder="Enter bill Contact No"
+            label="কন্টাক্ট নাম্বার"
+            keyboardType='numeric'
+            placeHolder="বিল কন্টাক্ট নাম্বার টাইপ করুন"
             onChangeText={(contact_no) => updateState({ contact_no })}
             
         />
@@ -307,8 +372,8 @@ const BillPay = () => {
         {
             type==='prepaid'? 
             <TextInputWithLabels
-            label="Biller Name"
-            placeHolder="Enter biller name"
+            label="বিলার নেম"
+            placeHolder="বিলার নেম টাইপ করুন"
             onChangeText={(biller_name) => updateState({ biller_name })}
             
         />
@@ -318,13 +383,14 @@ const BillPay = () => {
         }
 
         <TextInputWithLabels
-            label="Bill Amount"
-            placeHolder="Enter Bill Amount"
+            label="এমাউন্ট"
+            placeHolder="বিল এমাউন্ট টাইপ করুন"
+            keyboardType='numeric'
             onChangeText={(amount) => updateState({ amount })}
             
         />
 
-<ButtonWithLoader text="Send Now" onPress={()=>onSend()} isLoading={isLoading}/>
+<ButtonWithLoader text="সেন্ড করুন" onPress={()=>onSend()} isLoading={isLoading}/>
 
 
 

@@ -19,7 +19,11 @@ import { CONFIRM_PIN,
 	GET_OFFER_PACKAGES,
 	PLACE_OFFER_ORDER,
 	FETCH_OFFER_PACKAGE_TRANSACTION,
-	SIGNUP_FIRST_PAGE } from '../config/urls';
+	SIGNUP_FIRST_PAGE, 
+	ADD_BALANCE_REQUEST,
+GET_COMMISSION,
+GET_SLIDER_IMAGE,
+GET_PAYMENT_METHOD} from '../config/urls';
 import { showError } from './helperFunction';
 
 
@@ -247,6 +251,53 @@ export async function apiPost(endPoint,data,headers){
 									return [result.data.message];
 								
 									}
+
+
+									if(result.data.success && endPoint==ADD_BALANCE_REQUEST){
+										return true
+										
+										
+											
+										
+									}else if( !result.data.success && endPoint==ADD_BALANCE_REQUEST){
+										
+										return false
+										}
+
+										if(result.data.success && endPoint==GET_COMMISSION){
+											return result.data
+											
+											
+												
+											
+										}else if( !result.data.success && endPoint==GET_COMMISSION){
+											
+											return false
+											}
+
+											if(result.data.success && endPoint==GET_SLIDER_IMAGE){
+												return result.data
+												
+												
+													
+												
+											}else if( !result.data.success && endPoint==GET_SLIDER_IMAGE){
+												
+												return false
+												}
+
+												if(result.data.success && endPoint==GET_PAYMENT_METHOD){
+													return result.data
+													
+													
+														
+													
+												}else if( !result.data.success && endPoint==GET_PAYMENT_METHOD){
+													
+													return false
+													}
+			
+		
 	
 		
 		

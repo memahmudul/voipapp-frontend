@@ -6,6 +6,7 @@ import SelectDropdown from 'react-native-select-dropdown'
 import ButtonWithLoader from '../../components/ButtonWithLoader';
 import TextInputWithLabels from '../../components/TextInputWithLabel';
 import RadioButtonRN from 'radio-buttons-react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5'
 import { useSelector } from 'react-redux';
 import { rechargeValidation } from '../../utils/validations';
 import { showError,showSuccess } from '../../utils/helperFunction';
@@ -43,6 +44,15 @@ const Recharge = ({navigation}) => {
     const updateState = (data) => setState(() => ({ ...state, ...data }))
     const {email,username,phone} = useSelector((state)=> state.auth.userData.user)
     const currentBalance = useSelector((state)=> state.balance.balance)
+    const commissionRate = useSelector((state)=> state.commission.commission)
+   
+   const rate = ()=>{
+    for(let i = 0;i<commissionRate.length;i++){
+        if(commissionRate[i].transaction_type==='mobile-recharge'){
+            return commissionRate[i].rate
+        }
+    }
+   }
 
     const updateTypeState = (data)=>{
         const type = data.label
@@ -94,7 +104,8 @@ const Recharge = ({navigation}) => {
                     sender_username: username,
                     sender_email:email,
                     sender_phone:phone,
-                    status: 'pending'
+                    status: 'pending',
+                    commission:rate()
 
 
 
@@ -148,8 +159,16 @@ const Recharge = ({navigation}) => {
             <Text style={{fontSize:16,fontWeight:'bold' ,marginBottom:10}}>Select Operator</Text>
 
             <SelectDropdown
-        buttonStyle={{width:'100%',marginBottom:15}}
-        defaultButtonText= 'Click to select an operator'
+         buttonStyle={{width:'100%',marginBottom:15,backgroundColor:'#E31D25',borderRadius:10}}
+        buttonTextStyle={{color:'white',fontFamily:'Li Sirajee Sanjar Unicode'}}
+        renderDropdownIcon = {
+            ()=>{
+                return <Icon name="angle-down"  backgroundColor="transparent" color="white" size={25}></Icon>
+            }
+        }
+        dropdownStyle={{backgroundColor:'#E31D25',color:'white'}}
+        rowTextStyle={{color:'white'}}
+        defaultButtonText= 'অপারেটর সিলেক্ট করুন'
             data={operatorData}
             onSelect={(operators, index) => {
                 updateState({ operators })
@@ -169,27 +188,29 @@ const Recharge = ({navigation}) => {
         />
 
 <TextInputWithLabels
-            label="Phone"
-            placeHolder="Enter Phone Number"
+            label="ফোন"
+            placeHolder="ফোন নাম্বার টাইপ করুন"
             onChangeText={(recipient) => updateState({ recipient })}
             
         />
 
 <TextInputWithLabels
-            label="Amount"
-            placeHolder="Enter Recharge Amount"
+            label="এমাউন্ট"
+            placeHolder="রিচার্জ এমাউন্ট টাইপ করুন"
             onChangeText={(amount) => updateState({ amount })}
             
         />
-
+<Text style={{fontSize:18,fontFamily:'Li Sirajee Sanjar Unicode',marginBottom:10,color:'#E31D25'}}>রিচার্জ টাইপ সিলেক্ট করুন</Text>
 
 <RadioButtonRN
+  activeColor='#E31D25'
+        textStyle = {{color:'#E31D25',textTransform:'uppercase',fontWeight:'bold'}}
   data={typeData}
   box={false}
   selectedBtn={(type) => updateTypeState(type)}
 />
 
-<ButtonWithLoader text="Recharge Now" onPress={()=>onSend()} isLoading={isLoading}/>
+<ButtonWithLoader text="রিচার্জ করুন" onPress={()=>onSend()} isLoading={isLoading}/>
             </SafeAreaView>
         </View>
     );

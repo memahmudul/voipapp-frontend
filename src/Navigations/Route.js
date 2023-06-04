@@ -5,7 +5,7 @@ import { SafeAreaView,Text,View, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 
-import { Login, Signup,VerifyPin,Home,Profile,MobileBanking, BankTransfer,BillPay, Recharge,Offer, BuyOffer, SignupNext } from '..'
+import { Login, Signup,VerifyPin,Home,Profile,MobileBanking, BankTransfer,BillPay, Recharge,Offer, BuyOffer, SignupNext,AddBalance } from '..'
 import TabRoutes from './TabRoutes';
 
 import { useSelector } from 'react-redux';
@@ -73,37 +73,37 @@ export default function Routes({navigation}) {
           <Stack.Screen name="MobileBanking" component={MobileBanking} options={{
              headerTintColor: 'white',
               headerTitle: '',
-              headerRight:()=><Text style={{fontSize:20,color:'white',fontWeight:'medium',paddingRight:110}}>MOBILE BANKING</Text>,   
-       headerStyle: {backgroundColor: '#060047'},
+              headerRight:()=><Text style={{fontSize:20,color:'white',fontFamily:'Li Sirajee Sanjar Unicode',paddingRight:130}}>মোবাইল ব্যাংকিং</Text>,   
+       headerStyle: {backgroundColor: '#E31D25'},
 
             }}  />
           <Stack.Screen name="BankTransfer" component={BankTransfer} options={{
              headerTintColor: 'white',
               headerTitle: '',
-              headerRight:()=><Text style={{fontSize:20,color:'white',fontWeight:'medium',paddingRight:110}}>BANK TRANSFER</Text>,   
-       headerStyle: {backgroundColor: '#060047'},
+              headerRight:()=><Text style={{fontSize:20,color:'white',fontFamily:'Li Sirajee Sanjar Unicode',paddingRight:140}}>ব্যাংক ট্রান্সফার</Text>,   
+       headerStyle: {backgroundColor: '#E31D25'},
 
             }}  />
           <Stack.Screen name="BillPay" component={BillPay} options={{
              headerTintColor: 'white',
               headerTitle: '',
-              headerRight:()=><Text style={{fontSize:20,color:'white',fontWeight:'medium',paddingRight:150}}>BILL PAY</Text>,   
-       headerStyle: {backgroundColor: '#060047'},
+              headerRight:()=><Text style={{fontSize:20,color:'white',fontFamily:'Li Sirajee Sanjar Unicode',paddingRight:170}}>বিল পে</Text>,   
+       headerStyle: {backgroundColor: '#E31D25'},
 
             }}  />
           <Stack.Screen name="Recharge" component={Recharge} options={{
              headerTintColor: 'white',
               headerTitle: '',
-              headerRight:()=><Text style={{fontSize:20,color:'white',fontWeight:'medium',paddingRight:140}}>RECHARGE</Text>,   
-       headerStyle: {backgroundColor: '#060047'},
+              headerRight:()=><Text style={{fontSize:20,color:'white',fontFamily:'Li Sirajee Sanjar Unicode',paddingRight:180}}>রিচার্জ</Text>,   
+       headerStyle: {backgroundColor: '#E31D25'},
 
             }}  />
 
 <Stack.Screen name="Offer" component={Offer} options={{
              headerTintColor: 'white',
               headerTitle: '',
-              headerRight:()=><Text style={{fontSize:20,color:'white',fontWeight:'medium',paddingRight:120}}>OFFER PACKAGE</Text>,   
-       headerStyle: {backgroundColor: '#060047'},
+              headerRight:()=><Text style={{fontSize:20,color:'white',fontFamily:'Li Sirajee Sanjar Unicode',paddingRight:140}}>অফার প্যাকেজ</Text>,   
+       headerStyle: {backgroundColor: '#E31D25'},
 
             }}  />
 
@@ -111,8 +111,15 @@ export default function Routes({navigation}) {
 <Stack.Screen name="BuyOffer" component={BuyOffer} options={{
              headerTintColor: 'white',
               headerTitle: '',
-              headerRight:()=><Text style={{fontSize:20,color:'white',fontWeight:'medium',paddingRight:120}}>ACTIVATE OFFER</Text>,   
-       headerStyle: {backgroundColor: '#060047'},
+              headerRight:()=><Text style={{fontSize:20,color:'white',fontFamily:'Li Sirajee Sanjar Unicode',paddingRight:120}}>অফার একটিভ করুন</Text>,   
+       headerStyle: {backgroundColor: '#E31D25'},
+       }}  />
+
+<Stack.Screen name="AddBalance" component={AddBalance} options={{
+             headerTintColor: 'white',
+              headerTitle: '',
+              headerRight:()=><Text style={{fontSize:20,color:'white',paddingRight:150,fontFamily:'Li Sirajee Sanjar Unicode',}}>এড ব্যালেন্স</Text>,   
+       headerStyle: {backgroundColor: '#E31D25'},
        }}  />
 
             

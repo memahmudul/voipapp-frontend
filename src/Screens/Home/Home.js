@@ -1,18 +1,20 @@
 //import libraries
-import React, { Component,useEffect,useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import { View, Text, StyleSheet,Alert, SafeAreaView,Image, } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import actions from '../../redux/actions';
-import ButtonWithLoader from '../../components/ButtonWithLoader';
-import Icon from 'react-native-vector-icons/Fontisto'
+
+
 import Iconf from 'react-native-vector-icons/FontAwesome'
 
-import DropShadow from "react-native-drop-shadow";  
+
 import MobileBankingCard from '../../components/MobileBankingCard';
 import BottomCard from './BottomCard';
 import { useSelector } from 'react-redux';
 
+import { updateCommissionState } from '../../redux/actions/commission';
 import { updateBalanceState } from '../../redux/actions/balance';
+import { updateSliderImageState } from '../../redux/actions/slider';
 import { showError } from '../../utils/helperFunction';
 import { SliderBox } from "react-native-image-slider-box";
 
@@ -25,20 +27,12 @@ const Home = ({navigation}) => {
     
     const {user} = useSelector((state)=> state.auth.userData)
     const balance = useSelector((state)=> state.balance.balance)
+    const sliderImages = useSelector((state)=> state.slider.sliderImages)
     
  
     
     const email = user? user.email : 'demo@gmail.com'
 
-    const images = [
-      "https://source.unsplash.com/1024x768/?nature",
-      "https://source.unsplash.com/1024x768/?water",
-      "https://source.unsplash.com/1024x768/?girl",
-      "https://source.unsplash.com/1024x768/?tree",
-      require('../../assets/airtel.png'),
-      
-
-    ];
 
     // useEffect(()=>{
 
@@ -98,9 +92,50 @@ const Home = ({navigation}) => {
 
     }
 
+    const fetchCommission = async()=>{
+      const result = await actions.getCommission()
+     
+    
+     
+      
+       
+       
+      if(result){
+        const data = result.result[0].commission
+       
+     
+               updateCommissionState(data)
+       }else{
+          showError('Error Occurred')
+       }  
+
+    }
+
+     const fetchSliderImages = async()=>{
+      const result = await actions.getSliderImage()
+     
+    
+     
+      
+       
+       
+      if(result){
+         const data = result.result[0].images
+         updateSliderImageState(data)
+         
+     
+               
+       }else{
+          showError('Error Occurred')
+       }  
+
+    }
+
     useEffect(()=>{
 
         onRefresh()
+        fetchCommission()
+        fetchSliderImages()
       },[]) 
 
 
@@ -163,7 +198,7 @@ const Home = ({navigation}) => {
         
             name="money"
                 backgroundColor="#F58220"
-                onPress={()=>{console.log('icon button working')}}
+                onPress={()=>{ navigation.navigate('AddBalance')}}
                 
   >
             <Text style={{  fontFamily:'Li Sirajee Sanjar Unicode',color:'white',fontSize:16}}>ব্যালেন্স যুক্ত করুন</Text>
@@ -190,8 +225,9 @@ const Home = ({navigation}) => {
         <MobileBankingCard icon={require("../../assets/rocket.png")} text="রকেট" onPress={navigateToMobileBanking} method="rocket"/>
         <MobileBankingCard icon={require("../../assets/surecash.jpg")} text="শিওরক্যাশ" onPress={navigateToMobileBanking} method="surecash"/>
         <MobileBankingCard icon={require("../../assets/mkash.png")} text="এমক্যাশ" onPress={navigateToMobileBanking} method="mcash"/>
-        <MobileBankingCard icon={require("../../assets/ucash.png")} text="uCash" onPress={navigateToMobileBanking} method="ucash"/> 
-         <MobileBankingCard icon={require("../../assets/okwallet.jpg")} text="OKBank" onPress={navigateToMobileBanking} method="okbanking"/>
+        <MobileBankingCard icon={require("../../assets/ucash.png")} text="ইউক্যাশ" onPress={navigateToMobileBanking} method="ucash"/> 
+         <MobileBankingCard icon={require("../../assets/okwallet.jpg")} text="ওকেব্যাংক" onPress={navigateToMobileBanking} method="okbanking"/>
+         <MobileBankingCard icon={require("../../assets/upay.png")} text="উপায়" onPress={navigateToMobileBanking} method="upay"/>
        </View>
         </View>
       </View>
@@ -219,7 +255,7 @@ const Home = ({navigation}) => {
 
         </View>
         <View style={{height:105,overflow:'hidden',borderRadius:10}}>
-        <SliderBox images={images}  dotColor="#DC0905"  autoplay
+        <SliderBox images={sliderImages}  dotColor="#DC0905"  autoplay
   circleLoop />
         </View>
         

@@ -9,9 +9,9 @@ const ActionBarImage = () => {
     const user = userData.user;
     return (
         <View style={styles.container}>
-        <Image source={require("../../assets/avatar.jpg")} style={{width: 40, height: 40,borderRadius:40,backgroundColor:'red'}}/>
+        <Image source={require("../../assets/avatar.png")} style={{width: 40, height: 40,borderRadius:40,backgroundColor:'red'}}/>
             <View>
-            <Text style={{color:'white',fontWeight:'bold'}}>{user? user.name:'John Doe'}</Text>
+            <Text style={{color:'white',fontWeight:'bold',fontSize:15}}>{user? user.name:'John Doe'}</Text>
             <Text style={{color:'white',fontWeight:'bold'}}>{user? user.phone:'017*******'}</Text>
             </View>
         </View>

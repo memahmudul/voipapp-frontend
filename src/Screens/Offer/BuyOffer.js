@@ -29,6 +29,15 @@ const BuyOffer = ({route,navigation}) => {
         
     })
     const {email,username,phone} = useSelector((state)=> state.auth.userData.user)
+    const commissionRate = useSelector((state)=> state.commission.commission)
+   
+   const rate = ()=>{
+    for(let i = 0;i<commissionRate.length;i++){
+        if(commissionRate[i].transaction_type==='drive-offer'){
+            return commissionRate[i].rate
+        }
+    }
+   }
 
     const updateState = (data) => setState(() => ({ ...state, ...data }))
 
@@ -68,7 +77,8 @@ const BuyOffer = ({route,navigation}) => {
                     sender_username: username,
                     sender_email:email,
                     sender_phone:phone,
-                    status: 'pending'
+                    status: 'pending',
+                    commission:rate()
 
 
 
@@ -126,21 +136,26 @@ const BuyOffer = ({route,navigation}) => {
     return (
         <View style={styles.container}>
         <View style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
-        <Text style={{backgroundColor:'#060047',color:'white',padding:10,fontSize:16,fontWeight:'medium',borderRadius:10}}>Operator</Text>
+        <Text style={{backgroundColor:'#E31D25',color:'white',fontFamily:'Li Sirajee Sanjar Unicode',padding:10,fontSize:16,borderRadius:10}}>অপারেটর</Text>
         <Text style={{paddingLeft:12,fontWeight:'bold',fontSize:18}}>{operators.toUpperCase()}</Text>
         </View>
         <View style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
-        <Text style={{backgroundColor:'#060047',color:'white',padding:10,fontSize:16,fontWeight:'medium',borderRadius:10,minWidth:80}}>Offer</Text>
+        <Text style={{backgroundColor:'#E31D25',color:'white',padding:10,fontSize:16,borderRadius:10,fontFamily:'Li Sirajee Sanjar Unicode'}}>অফার</Text>
         <Text style={{paddingLeft:12,fontWeight:'bold',fontSize:18}}>{offer_name}</Text>
         </View>
+        <View style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
+        <Text style={{backgroundColor:'#E31D25',color:'white',padding:10,fontSize:16,borderRadius:10,fontFamily:'Li Sirajee Sanjar Unicode'}}>মূল্য</Text>
+        <Text style={{paddingLeft:12,fontWeight:'bold',fontSize:18}}>{price} টাকা</Text>
+        </View>
             <TextInputWithLabels
-            label="Phone"
-            placeHolder="Enter Phone Number"
+            label="ফোন"
+            placeHolder="ফোন নাম্বার টাইপ করুন"
+            keyboardType='numeric'
             onChangeText={(recipient) => updateState({ recipient })}
             
         />
 
-<ButtonWithLoader text="Activate Now" onPress={()=>onSend()} isLoading={isLoading}/>
+<ButtonWithLoader text="একটিভ করুন" onPress={()=>onSend()} isLoading={isLoading}/>
         </View>
     );
 };
