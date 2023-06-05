@@ -46,19 +46,21 @@ const Profile = () => {
    }) //filter transactionlist by only todays date
   
 
-   console.log(newList);
+ 
 
 
     let total=0;
+    let commission_total = 0;
   
     for(let i=0;i<newList.length;i++){
-        console.log(newList[i].status);
-       
+        
         if(newList[i].status==='success' && newList[i].amount){
             total+=parseInt(newList[i].amount)
+            commission_total+=parseInt(newList[i].commission)
 
         }else if(newList[i].status==='success' && newList[i].price){
             total+=parseInt(newList[i].price)
+            commission_total+=parseInt(newList[i].commission)
 
         }
         
@@ -136,7 +138,7 @@ const Profile = () => {
           <View style={styles.item}>
           <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
           <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',color:'white',fontSize:18}}>আজকের সর্বমোট প্রাপ্ত কমিশন</Text>
-          <Text style={{color:'white',fontWeight:'bold',fontSize:18}}>৳{total}</Text>
+          <Text style={{color:'white',fontWeight:'bold',fontSize:18}}>৳{commission_total}</Text>
 
           </View>
           </View>

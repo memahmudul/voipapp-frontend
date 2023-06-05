@@ -106,7 +106,8 @@ const AddBalance = ({navigation}) => {
     return (
         <View style={styles.container}>
             <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',color:'black',fontSize:20}}>আপনার রিসেলার একাউন্ট এ ব্যালেন্স এড করার জন্য নিচের পদ্ধতি অনুসরন করুন :</Text>
-            <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',color:'black',fontSize:16}}>১. নিম্নোক্ত যেকোন একটি নাম্বারে টাকা সেন্ড মানি করুন        *সর্বনিম্ন ৫০০ টাকা </Text>
+            <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',color:'black',fontSize:16}}>১. নিম্নোক্ত যেকোন একটি নাম্বারে বিকাশ বা নগদ থেকে টাকা সেন্ড মানি করুন
+            *সর্বনিম্ন ৫০০ টাকা </Text>
             <View style={styles.btnStyle}>
             <Text style={styles.textStyle}>{payment.payment_method_1}</Text>
             
@@ -161,7 +162,7 @@ const AddBalance = ({navigation}) => {
                 isLoading={isLoading}
             />
             <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',color:'black',fontSize:16,textAlign:'center'}}>সাহায্যের জন্য যোগাযোগ করুন</Text>
-            <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',color:'black',fontSize:16,textAlign:'center'}}>01310616733</Text>
+            <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',color:'black',fontSize:16,textAlign:'center'}}>017*********</Text>
         </View>
     );
 };
