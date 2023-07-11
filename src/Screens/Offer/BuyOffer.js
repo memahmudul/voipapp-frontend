@@ -1,5 +1,5 @@
 //import liraries
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import TextInputWithLabels from '../../components/TextInputWithLabel';
@@ -9,6 +9,7 @@ import { addSingleTransactionState } from '../../redux/actions/transactionorder'
 import { activateOfferValidation } from '../../utils/validations';
 import { useSelector } from 'react-redux';
 import actions from '../../redux/actions';
+import { updateCommissionState } from '../../redux/actions/commission';
 
 // create a component
 const BuyOffer = ({route,navigation}) => {
@@ -28,8 +29,45 @@ const BuyOffer = ({route,navigation}) => {
         
         
     })
-    const {email,username,phone} = useSelector((state)=> state.auth.userData.user)
+    const {admin,email,username,phone} = useSelector((state)=> state.auth.userData.user)
+
+
+
+    const fetchCommission = async()=>{
+        const result = await actions.getCommission()
+       
+      
+       
+        
+         
+         
+        if(result){
+          const data = result.result[0].commission
+
+          console.log(data);
+         
+       
+                 updateCommissionState(data)
+         }else{
+            showError('Error Occurred')
+         }  
+  
+      }
+
+
+      
+      
+
+      useEffect(()=>{
+
+       
+        fetchCommission()
+       
+      },[]) 
     const commissionRate = useSelector((state)=> state.commission.commission)
+
+
+    
    
    const rate = ()=>{
     for(let i = 0;i<commissionRate.length;i++){
@@ -38,6 +76,9 @@ const BuyOffer = ({route,navigation}) => {
         }
     }
    }
+
+
+   const finalCommission = rate()
 
     const updateState = (data) => setState(() => ({ ...state, ...data }))
 
@@ -70,6 +111,7 @@ const BuyOffer = ({route,navigation}) => {
                
                
                 const result = await actions.placeOfferOrder({
+                    admin,
                     operators,
                     recipient,
                     offer_name,
@@ -78,7 +120,7 @@ const BuyOffer = ({route,navigation}) => {
                     sender_email:email,
                     sender_phone:phone,
                     status: 'pending',
-                    commission:rate()
+                    commission:finalCommission
 
 
 

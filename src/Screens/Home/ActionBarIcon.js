@@ -1,16 +1,28 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome'
+
 
 // create a component
 const ActionBarIcon = () => {
+
+    const onPress = ()=>{
+        console.log('working');
+
+ 
+
+        
+    }
     return (
         <View style={styles.container}>
         
-        <Icon.Button style={{marginRight:-6}}  name="envelope" color='white' backgroundColor="transparent">
+       <TouchableOpacity onPress={onPress}>
+       <Icon.Button style={{marginRight:-6}}  name="envelope" color='white' backgroundColor="transparent" >
            
            </Icon.Button>
+       </TouchableOpacity>
         </View>
     );
 };

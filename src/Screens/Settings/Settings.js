@@ -13,7 +13,7 @@ const Settings = () => {
         actions.logout()
     }
 
-    const url = "http://www.probashtelecom.com"
+    const url = "https://shopontel.net/shopontel-voip"
 
 
     const loadInBrowser = () => {

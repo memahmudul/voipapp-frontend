@@ -9,6 +9,7 @@ import { Login, Signup,VerifyPin,Home,Profile,MobileBanking, BankTransfer,BillPa
 import TabRoutes from './TabRoutes';
 
 import { useSelector } from 'react-redux';
+import Notification from '../Screens/Notification/Notification';
 
 
 
@@ -22,6 +23,9 @@ export default function Routes({navigation}) {
   // }
 
     const userData = useSelector((state)=> state.auth.userData)
+
+
+   
    
 
 
@@ -42,7 +46,7 @@ export default function Routes({navigation}) {
               headerRight:()=><Text style={{fontSize:20,color:'white',fontFamily:'Li Sirajee Sanjar Unicode',paddingRight:170}}>লগ ইন</Text>,   
        headerStyle: {backgroundColor: '#E31D25'},
 
-            }} />
+            }}/>
           <Stack.Screen name="Signup" component={Signup} options={{
              headerTintColor: 'white',
               headerTitle: '',
@@ -119,6 +123,13 @@ export default function Routes({navigation}) {
              headerTintColor: 'white',
               headerTitle: '',
               headerRight:()=><Text style={{fontSize:20,color:'white',paddingRight:150,fontFamily:'Li Sirajee Sanjar Unicode',}}>এড ব্যালেন্স</Text>,   
+       headerStyle: {backgroundColor: '#E31D25'},
+       }}  />
+
+<Stack.Screen name="Notification" component={Notification} options={{
+             headerTintColor: 'white',
+              headerTitle: '',
+              headerRight:()=><Text style={{fontSize:20,color:'white',paddingRight:150,fontFamily:'Li Sirajee Sanjar Unicode',}}>নোটিফিকেশন</Text>,   
        headerStyle: {backgroundColor: '#E31D25'},
        }}  />
 

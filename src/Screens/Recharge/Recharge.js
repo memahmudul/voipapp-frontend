@@ -1,5 +1,5 @@
 //import liraries
-import React, { useState} from 'react';
+import React, { useState,useEffect} from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SelectDropdown from 'react-native-select-dropdown'
@@ -12,10 +12,12 @@ import { rechargeValidation } from '../../utils/validations';
 import { showError,showSuccess } from '../../utils/helperFunction';
 import { addSingleTransactionState } from '../../redux/actions/transactionorder';
 import actions from '../../redux/actions';
-
+import { updateCommissionState } from '../../redux/actions/commission';
 
 // create a component
 const Recharge = ({navigation}) => {
+
+    
 
 
     const operatorData = ["GrameenPhone", "Banglalink", "Robi","Teletalk","Airtel"]
@@ -30,6 +32,7 @@ const Recharge = ({navigation}) => {
 
     const [state, setState] = useState({
         isLoading: false,
+       
         
         operators: '',
        
@@ -42,8 +45,45 @@ const Recharge = ({navigation}) => {
 
     const { isLoading,operators,recipient,amount,type} = state
     const updateState = (data) => setState(() => ({ ...state, ...data }))
-    const {email,username,phone} = useSelector((state)=> state.auth.userData.user)
+    const {admin,email,username,phone} = useSelector((state)=> state.auth.userData.user)
     const currentBalance = useSelector((state)=> state.balance.balance)
+
+
+  
+
+
+
+    const fetchCommission = async()=>{
+        const result = await actions.getCommission()
+       
+      
+       
+        
+         
+         
+        if(result){
+          const data = result.result[0].commission
+
+        
+         
+       
+                 updateCommissionState(data)
+         }else{
+            showError('Error Occurred')
+         }  
+  
+      }
+
+
+      
+      
+
+      useEffect(()=>{
+
+       
+        fetchCommission()
+       
+      },[]) 
     const commissionRate = useSelector((state)=> state.commission.commission)
    
    const rate = ()=>{
@@ -53,6 +93,8 @@ const Recharge = ({navigation}) => {
         }
     }
    }
+
+   const finalCommission = rate()
 
     const updateTypeState = (data)=>{
         const type = data.label
@@ -101,11 +143,12 @@ const Recharge = ({navigation}) => {
                     recipient,
                     type,
                     amount,
+                    admin,
                     sender_username: username,
                     sender_email:email,
                     sender_phone:phone,
                     status: 'pending',
-                    commission:rate()
+                    commission:finalCommission
 
 
 

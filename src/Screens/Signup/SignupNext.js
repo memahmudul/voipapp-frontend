@@ -18,6 +18,7 @@ const SignupNext = ({route,navigation}) => {
         username: item.username,
         phone: item.phone,
         email: item.email,
+        admin:item.admin,
         isLoading: false,
         password: '',
         confirmPassword: "",
@@ -28,7 +29,7 @@ const SignupNext = ({route,navigation}) => {
     })
     const updateState = (data) => setState(() => ({ ...state, ...data }))
 
-    const {  name,username,email,phone,password,confirmPassword,role, isSecure,isLoading,pin,confirmPin } = state
+    const {  name,username,email,phone,admin,password,confirmPassword,role, isSecure,isLoading,pin,confirmPin } = state
 
     const isValidData = () => {
         const error = validation({
@@ -36,6 +37,7 @@ const SignupNext = ({route,navigation}) => {
             username,
             phone,
             email,
+            
             password,
             confirmPassword,
             pin,
@@ -63,6 +65,7 @@ const SignupNext = ({route,navigation}) => {
                     username,
                     phone,
                     email,
+                    admin,
                     password,
                     pin,
                     role

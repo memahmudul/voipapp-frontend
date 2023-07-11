@@ -1,5 +1,5 @@
 //import liraries
-import React, { Component,useState } from 'react';
+import React, { Component,useState,useEffect } from 'react';
 import { View, Text, StyleSheet,SafeAreaView } from 'react-native';
 import ButtonWithLoader from '../../components/ButtonWithLoader';
 import TextInputWithLabels from '../../components/TextInputWithLabel';
@@ -8,9 +8,10 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 
 import { validation } from '../../utils/validations.js';
 import { showError,showSuccess } from '../../utils/helperFunction';
-import { useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import actions from '../../redux/actions';
 import { addSingleTransactionState } from '../../redux/actions/transactionorder';
+import { updateCommissionState } from '../../redux/actions/commission';
 
 
 
@@ -31,16 +32,69 @@ const MobileBanking = ({route,navigation}) => {
 
     const { recipient,amount,type,isLoading,bank} = state
     const currentBalance = useSelector((state)=> state.balance.balance)
-    const {email,username,phone} = useSelector((state)=> state.auth.userData.user)
-    const commissionRate = useSelector((state)=> state.commission.commission)
+    const {admin,email,username,phone} = useSelector((state)=> state.auth.userData.user)
+
+
+    const fetchCommission = async()=>{
+        const result = await actions.getCommission()
+       
+      
+       
+        
+         
+         
+        if(result){
+          const data = result.result[0].commission
+
+          console.log(data);
+         
+       
+                 updateCommissionState(data)
+         }else{
+            showError('Error Occurred')
+         }  
+  
+      }
+
+
+      
+      
+
+      useEffect(()=>{
+
+       
+        fetchCommission()
+       
+      },[]) 
+
+
+
+
+
+     
    
+    const commissionRate = useSelector((state)=> state.commission.commission)
+
+    
+
+
+    
    const rate = ()=>{
+
+  
+
+    
     for(let i = 0;i<commissionRate.length;i++){
         if(commissionRate[i].transaction_type==='mobile-banking'){
             return commissionRate[i].rate
         }
     }
    }
+
+
+   const finalCommission = rate()
+
+
 
 
 
@@ -73,6 +127,7 @@ const MobileBanking = ({route,navigation}) => {
             updateState({ isLoading: true })
             try {
                 const result = await actions.placeMobileBankingOrder({
+                    admin,
                     receiver:recipient,
                     banking_method:bank,
                     
@@ -82,7 +137,7 @@ const MobileBanking = ({route,navigation}) => {
                     sender_email:email,
                     sender_phone:phone,
                     status: 'pending',
-                    commission:rate()
+                    commission:finalCommission
 
 
 

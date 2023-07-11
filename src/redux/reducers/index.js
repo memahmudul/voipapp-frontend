@@ -5,6 +5,7 @@ import balance from "./balance";
 import transaction from "./transaction";
 import commission from "./commission";
 import slider from "./slider";
+import notification from "./notification";
 
 
 
@@ -13,7 +14,8 @@ const appReducer = combineReducers({
     balance,
     transaction,
     commission,
-    slider
+    slider,
+    notification
 })
 
 // const rootReducer = (state, action) => {

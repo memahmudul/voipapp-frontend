@@ -60,7 +60,8 @@ const History = () => {
  
     return (
         <View style={styles.container}>
-            <FlatList  refreshControl={
+            {
+              transactionList? <FlatList  refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
             
@@ -68,7 +69,8 @@ const History = () => {
             
         data={transactionList}
         renderItem={({item}) => <ListItem item={item}/>}
-      />
+      /> : <Text>Loading....</Text>
+            }
         </View>
     );
 };

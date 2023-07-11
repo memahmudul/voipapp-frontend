@@ -10,12 +10,12 @@ const ListItem = (item) => {
 
     if(item.item.amount){
       const amount = parseFloat(item.item.amount)
-      finalCommission = amount*(commissionRate/100)
+      finalCommission = parseInt(amount*(commissionRate/100))
 
     }
     if(item.item.price){
       const price = parseFloat(item.item.price)
-      finalCommission = price*(commissionRate/100)
+      finalCommission = parseInt(price*(commissionRate/100))
     }
     
 

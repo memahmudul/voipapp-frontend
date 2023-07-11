@@ -16,6 +16,9 @@ import actions from '../../redux/actions';
 // create a component
 const Signup = ({navigation}) => {
 
+
+    const adminSelect = ["admin1", "admin2", "admin3"]
+
     
     const [state, setState] = useState({
         isLoading: false,
@@ -23,8 +26,9 @@ const Signup = ({navigation}) => {
         username: '',
         phone: '',
         email: '',
+        admin: ''
     })
-    const { name,username, phone,email,isLoading } = state
+    const { name,username, phone,email,isLoading,admin } = state
     const updateState = (data) => setState(() => ({ ...state, ...data }))
 
 
@@ -34,6 +38,7 @@ const Signup = ({navigation}) => {
             username,
             phone,
             email,
+            admin
         })
         if (error) {
             showError(error)
@@ -52,14 +57,15 @@ const Signup = ({navigation}) => {
                     name,
                     username,
                     phone,
-                    email
+                    email,
+                    admin
 
                 })
                 
                 if(result==='signup-first-page-validation-success'){
                     console.log('success');
                     updateState({ isLoading: false })
-                    navigation.navigate('SignupNext',{name,username,phone,email})
+                    navigation.navigate('SignupNext',{name,username,phone,email,admin})
                 }else{
                     showError(result)
                     updateState({ isLoading: false })
@@ -100,6 +106,45 @@ const Signup = ({navigation}) => {
             placeHolder="আপনার ইমেইল টাইপ করুন"
             onChangeText={(email) => updateState({ email })}
             
+        />
+
+<TextInputWithLabels
+            label="এডমিনের নাম"
+            placeHolder="এডমিনের নাম টাইপ করুন"
+            onChangeText={(admin) => updateState({ admin })}
+            
+        />
+
+<Text style={{fontSize:18,fontFamily:'Li Sirajee Sanjar Unicode',marginBottom:10,color:'#E31D25'}}>এডমিন</Text>
+
+
+<SelectDropdown
+        buttonStyle={{width:'100%',marginBottom:15,backgroundColor:'#E31D25',borderRadius:10}}
+        buttonTextStyle={{color:'white',fontFamily:'Li Sirajee Sanjar Unicode'}}
+        renderDropdownIcon = {
+            ()=>{
+                return <Icon name="angle-down"  backgroundColor="transparent" color="white" size={25}></Icon>
+            }
+        }
+        dropdownStyle={{backgroundColor:'#E31D25',color:'white'}}
+        rowTextStyle={{color:'white'}}
+        defaultButtonText="সিলেক্ট করুন"
+            data={adminSelect}
+            onSelect={(admin, index) => {
+                updateState({ admin })
+	}}
+
+    buttonTextAfterSelection={(selectedItem, index) => {
+		// text represented after item is selected
+		// if data array is an array of objects then return selectedItem.property to render after item is selected
+		return selectedItem
+	}}
+
+    rowTextForSelection={(item, index) => {
+		// text represented for each item in dropdown
+		// if data array is an array of objects then return item.property to represent item in dropdown
+		return item
+	}}
         />
        
         <ButtonWithLoader text="পরবর্তী পেজে যান" onPress={onSignUp} isLoading={isLoading}/>

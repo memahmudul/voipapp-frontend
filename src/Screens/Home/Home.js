@@ -1,11 +1,12 @@
 //import libraries
 import React, { useEffect,useState } from 'react';
-import { View, Text, StyleSheet,Alert, SafeAreaView,Image, } from 'react-native';
+import { View, Text, StyleSheet,Alert, SafeAreaView,Image,Button } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import actions from '../../redux/actions';
 
 
 import Iconf from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 import MobileBankingCard from '../../components/MobileBankingCard';
@@ -23,6 +24,15 @@ import { SliderBox } from "react-native-image-slider-box";
 
 // create a component
 const Home = ({navigation}) => {
+
+  
+
+
+  const onActionBarIconPress = ()=>{
+
+    navigation.navigate('Notification')
+
+  }
 
     
     const {user} = useSelector((state)=> state.auth.userData)
@@ -102,6 +112,9 @@ const Home = ({navigation}) => {
        
       if(result){
         const data = result.result[0].commission
+
+        console.log('commission data is');
+        console.log(data);
        
      
                updateCommissionState(data)
@@ -137,6 +150,22 @@ const Home = ({navigation}) => {
         fetchCommission()
         fetchSliderImages()
       },[]) 
+
+
+      useEffect(() => {
+        navigation.setOptions({
+          headerRight: () => (
+
+          
+            <TouchableOpacity onPress={onActionBarIconPress}>
+            <Icon.Button style={{marginRight:-6}}  name="envelope" color='white' backgroundColor="transparent" >
+                
+                </Icon.Button>
+            </TouchableOpacity>
+          ),
+        });
+      }, [navigation])
+      
 
 
 

@@ -1,6 +1,5 @@
 //import liraries
-import React, { Component,useEffect} from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useEffect} from 'react';
 import 'react-native-gesture-handler';
 import FlashMessage from 'react-native-flash-message';
 
@@ -21,7 +20,7 @@ const App = () => {
 
     (async()=>{
       const userData = await getUserData()
-      console.log("App js user data is",userData)
+      
       if(!!userData){
         saveUserData(userData)
       }  

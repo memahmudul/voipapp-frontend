@@ -44,7 +44,7 @@ const checkIsNum = (val,key)=>{
 
 
 export const SignupFirstValidation = (data)=>{
-    const {  name,username,phone,email} = data
+    const {  name,username,phone,email,admin} = data
      
     if(name!==undefined){
         let emptyValidationText = checkEmpty(name, 'আপনার নাম লিখুন')
@@ -94,6 +94,15 @@ export const SignupFirstValidation = (data)=>{
             if (!validator.email(email)) {
                 return 'ইমেইল ফরম্যাট সঠিক নয়।'
             }
+        }
+    }
+
+
+    if(admin!==undefined){
+        let emptyValidationText = checkEmpty(admin, 'এডমিনের নাম লিখুন')
+        if(emptyValidationText!==''){
+            return emptyValidationText;
+
         }
     }
 
@@ -186,12 +195,19 @@ export const validation = (data) =>{
         let emptyValidationText = checkEmpty(pin, 'আপনার পিন টাইপ করুন')
         if (emptyValidationText !== '') {
             return emptyValidationText;
-        } else { 
-            let minLengthValidation = checkMinLength(pin, 6, 'পিন')
+        } 
+            
+        let minLengthValidation = checkMinLength(pin, 6, 'পিন')
             if (minLengthValidation !== '') {
                 return minLengthValidation
             }
-        }
+
+            if(pin.trim().length>6){
+
+                return 'পিন ৬ ডিজিটের বেশি হতে পারেবেনা।'
+
+            }
+        
     }
 
 
@@ -203,6 +219,12 @@ export const validation = (data) =>{
             let minLengthValidation = checkMinLength(pin, 6, 'কনফার্ম পিন')
             if (minLengthValidation !== '') {
                 return minLengthValidation
+            }
+
+            if(confirmPin.trim().length>6){
+
+                return 'পিন ৬ ডিজিটের বেশি হতে পারেবেনা।'
+
             }
 
             if(confirmPin!==pin){
@@ -312,8 +334,8 @@ export const bankTransferValidation = (data)=>{
         if (isNumValidation !== '') {
             return isNumValidation
         }
-            if(parseInt(amount)<1000){
-                return "ব্যাংক ট্রান্সফারে মিনিমাম এমাউন্ট ১০০০ টাকা ।"
+            if(parseInt(amount)<50000){
+                return "ব্যাংক ট্রান্সফারে মিনিমাম এমাউন্ট ৫০০০০ টাকা ।"
             }
 
             

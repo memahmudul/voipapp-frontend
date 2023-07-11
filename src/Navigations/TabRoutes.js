@@ -6,6 +6,9 @@ import ActionBarIcon from '../Screens/Home/ActionBarIcon';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ProfileActionBarIcon from '../Screens/Profile/ProfileActionBarIcon';
 import { View, Text, StyleSheet,Image } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
+import { Button } from 'react-native';
 
 
 const BottomTab = createBottomTabNavigator();
@@ -13,6 +16,8 @@ const BottomTab = createBottomTabNavigator();
 const TabRoutes = () => {
   
     return (
+
+      
         <BottomTab.Navigator initialRouteName="Home"
             
         >
@@ -38,11 +43,12 @@ const TabRoutes = () => {
 
             }}
          />
-            <BottomTab.Screen name="Home" component={Home}     options={{
-                headerTitle: '',
-       headerLeft:()=><ActionBarImage/>,
-       headerRight:()=> <ActionBarIcon/>,
-       headerStyle: {
+            <BottomTab.Screen name="Home" component={Home}     options={
+              ({ navigation, route }) => ({
+          headerTitle: '',
+          // Add a placeholder button without the `onPress` to avoid flicker
+          headerLeft:()=><ActionBarImage/>,
+          headerStyle: {
             backgroundColor: '#E31D25',
           },
           tabBarLabelStyle:{color:'#DC0905',fontSize:12,fontFamily:'Li Sirajee Sanjar Unicode'},
@@ -50,7 +56,20 @@ const TabRoutes = () => {
           tabBarIcon:  ({ color, size }) => (
         <Icon name="home" color='#DC0905' size={30} />
       ),
-        }}/>
+          headerRight: () => (
+
+
+            <Button title='notification'/>
+
+
+      //       <TouchableOpacity onPress={onActionBarIconPress}>
+      //  <Icon.Button style={{marginRight:-6}}  name="envelope" color='white' backgroundColor="transparent" >
+           
+      //      </Icon.Button>
+      //  </TouchableOpacity>
+          ),
+        })
+            }/>
             <BottomTab.Screen name="Profile" component={Profile} options={{
               headerTitle: '',
        headerLeft:()=><ActionBarImage/>,

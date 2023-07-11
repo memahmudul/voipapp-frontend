@@ -21,6 +21,7 @@ const AddBalance = ({navigation}) => {
         trx_id: '',
         amount:'',
         isSecure: true,
+        admin:user.admin,
         name:user.name,
         username:user.username,
         email:user.email,
@@ -53,7 +54,7 @@ const AddBalance = ({navigation}) => {
 
     }
     
-    const { isLoading, sender_phone, trx_id, isSecure,amount,name,username,email,user_phone } = state
+    const { isLoading, sender_phone, trx_id, isSecure,amount,admin,name,username,email,user_phone } = state
   
     const updateState = (data) => setState(() => ({ ...state, ...data }))
 
@@ -80,6 +81,7 @@ const AddBalance = ({navigation}) => {
                 sender_phone,
                 trx_id,
                 amount,
+                admin,
                 name,
                 username,
         email,
@@ -108,7 +110,8 @@ const AddBalance = ({navigation}) => {
             <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',color:'black',fontSize:20}}>আপনার রিসেলার একাউন্ট এ ব্যালেন্স এড করার জন্য নিচের পদ্ধতি অনুসরন করুন :</Text>
             <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',color:'black',fontSize:16}}>১. নিম্নোক্ত যেকোন একটি নাম্বারে বিকাশ বা নগদ থেকে টাকা সেন্ড মানি করুন
             *সর্বনিম্ন ৫০০ টাকা </Text>
-            <View style={styles.btnStyle}>
+            {
+                user.admin==='admin1'? <View style={styles.btnStyle}>
             <Text style={styles.textStyle}>{payment.payment_method_1}</Text>
             
         <Icon.Button
@@ -121,8 +124,10 @@ const AddBalance = ({navigation}) => {
           
   </Icon.Button>
 
-            </View>
-            <View style={styles.btnStyle}>
+            </View> : ''
+            }
+           {
+            user.admin==='admin2'?  <View style={styles.btnStyle}>
             <Text style={styles.textStyle}>{payment.payment_method_2}</Text>
             <Icon.Button
         
@@ -134,7 +139,24 @@ const AddBalance = ({navigation}) => {
           
   </Icon.Button>
 
-            </View>
+            </View>: ''
+           }
+
+           {
+            user.admin==='admin3'?  <View style={styles.btnStyle}>
+            <Text style={styles.textStyle}>{payment.payment_method_3}</Text>
+            <Icon.Button
+        
+            name="clipboard-list"
+                backgroundColor="transparent"
+                onPress={()=>{ copyToClipboard(payment.payment_method_3)}}
+                
+  >
+          
+  </Icon.Button>
+
+            </View>: ''
+           }
             <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',color:'black',fontSize:16}}>২. নিচের ফর্ম এ যে নাম্বার থেকে টাকা পাঠানো হয়েছে সেই নাম্বার এবং ট্রানজেশন আইডি দিয়ে সাবমিট করুন।</Text>
             <TextInputWithLabels
                   label="নাম্বার"
@@ -161,8 +183,8 @@ const AddBalance = ({navigation}) => {
                 onPress={onSubmit} 
                 isLoading={isLoading}
             />
-            <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',color:'black',fontSize:16,textAlign:'center'}}>সাহায্যের জন্য যোগাযোগ করুন</Text>
-            <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',color:'black',fontSize:16,textAlign:'center'}}>017*********</Text>
+            <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',color:'black',fontSize:16,textAlign:'center'}}>সাহায্যের জন্য  যোগাযোগ করুন</Text>
+            <Text style={{fontFamily:'Li Sirajee Sanjar Unicode',color:'black',fontSize:16,textAlign:'center'}}>হোয়াটসএপ: 01965255711</Text>
         </View>
     );
 };

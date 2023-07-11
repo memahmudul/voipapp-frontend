@@ -49,6 +49,12 @@ const Login = ({ navigation }) => {
                     password
                 })
                 if(login_result[0]=='login-success'){
+
+
+
+
+
+                    console.log(login_result[1]);
                    
                     
                   

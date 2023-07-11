@@ -23,7 +23,8 @@ import { CONFIRM_PIN,
 	ADD_BALANCE_REQUEST,
 GET_COMMISSION,
 GET_SLIDER_IMAGE,
-GET_PAYMENT_METHOD} from '../config/urls';
+GET_PAYMENT_METHOD,
+GET_NOTIFICATIONS} from '../config/urls';
 import { showError } from './helperFunction';
 
 
@@ -296,6 +297,18 @@ export async function apiPost(endPoint,data,headers){
 													
 													return false
 													}
+
+
+													if(result.data.success && endPoint==GET_NOTIFICATIONS){
+														return result.data.result
+														
+														
+															
+														
+													}else if( !result.data.success && endPoint==GET_NOTIFICATIONS){
+														
+														return false
+														}
 			
 		
 	

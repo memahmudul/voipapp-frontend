@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, {useState,useEffect } from 'react';
 import { View, Text, StyleSheet,SafeAreaView,ScrollView } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown'
 import ButtonWithLoader from '../../components/ButtonWithLoader';
@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import actions from '../../redux/actions';
 import { billPayValidation } from '../../utils/validations';
 import { addSingleTransactionState } from '../../redux/actions/transactionorder';
+import { updateCommissionState } from '../../redux/actions/commission';
 
 // create a component
 const BillPay = ({navigation}) => {
@@ -42,8 +43,41 @@ const BillPay = ({navigation}) => {
     const { isLoading,bill_service,type,month,meter_no,account_no,contact_no,biller_name,amount} = state
     const updateState = (data) => setState(() => ({ ...state, ...data }))
 
-    const {email,username,phone} = useSelector((state)=> state.auth.userData.user)
+    const {admin,email,username,phone} = useSelector((state)=> state.auth.userData.user)
     const currentBalance = useSelector((state)=> state.balance.balance)
+
+
+    const fetchCommission = async()=>{
+        const result = await actions.getCommission()
+       
+      
+       
+        
+         
+         
+        if(result){
+          const data = result.result[0].commission
+
+          console.log(data);
+         
+       
+                 updateCommissionState(data)
+         }else{
+            showError('Error Occurred')
+         }  
+  
+      }
+
+
+      
+      
+
+      useEffect(()=>{
+
+       
+        fetchCommission()
+       
+      },[]) 
     const commissionRate = useSelector((state)=> state.commission.commission)
    
    const rate = ()=>{
@@ -53,6 +87,8 @@ const BillPay = ({navigation}) => {
         }
     }
    }
+
+   const finalCommission = rate()
     
 
    
@@ -109,7 +145,7 @@ const BillPay = ({navigation}) => {
 
 
     const onSend = async () => {
-        console.log(type);
+       
       
        
        
@@ -124,6 +160,7 @@ const BillPay = ({navigation}) => {
                
                if(type==='prepaid'){
                 result = await actions.placeBillPayOrder({
+                    admin,
                     bill_service,
                     type,
                     month,
@@ -136,7 +173,7 @@ const BillPay = ({navigation}) => {
                     sender_email:email,
                     sender_phone:phone,
                     status: 'pending',
-                    commission:rate()
+                    commission:finalCommission
 
 
 
@@ -146,6 +183,7 @@ const BillPay = ({navigation}) => {
                 
                }else if(type==='postpaid'){
                 result = await actions.placeBillPayOrder({
+                    admin,
                     bill_service,
                     type,
                     

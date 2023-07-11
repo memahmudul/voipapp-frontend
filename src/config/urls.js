@@ -1,4 +1,7 @@
-export const API_BASE_URL = "http://192.168.248.1:8080";
+export const API_BASE_URL = "https://voip-app-dwn1.onrender.com";
+
+//https://voip-app-dwn1.onrender.com
+//http://192.168.248.1:8080
 export const getApiUrl = (endpoint) => API_BASE_URL + endpoint
 
 export const LOGIN = getApiUrl('/auth/login')
@@ -31,6 +34,9 @@ export const FETCH_OFFER_PACKAGE_TRANSACTION = getApiUrl('/order/get-all-offer-o
 export const GET_COMMISSION = getApiUrl('/commission/get-commission');
 export const GET_SLIDER_IMAGE = getApiUrl('/slider/get-slider-images');
 export const GET_PAYMENT_METHOD = getApiUrl('/payment/get-payment-method');
+
+
+export const GET_NOTIFICATIONS = getApiUrl('/admin/get-all-notification-by-user');
 
 
 
