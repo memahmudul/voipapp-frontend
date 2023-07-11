@@ -7,6 +7,8 @@ import TextInputWithLabels from '../../components/TextInputWithLabel';
 import { SignupFirstValidation } from '../../utils/validations';
 import { showError } from '../../utils/helperFunction';
 import actions from '../../redux/actions';
+import SelectDropdown from 'react-native-select-dropdown';
+import Icon from 'react-native-vector-icons/FontAwesome5'
 
 
 
@@ -108,14 +110,11 @@ const Signup = ({navigation}) => {
             
         />
 
-<TextInputWithLabels
-            label="এডমিনের নাম"
-            placeHolder="এডমিনের নাম টাইপ করুন"
-            onChangeText={(admin) => updateState({ admin })}
-            
-        />
+
 
 <Text style={{fontSize:18,fontFamily:'Li Sirajee Sanjar Unicode',marginBottom:10,color:'#E31D25'}}>এডমিন</Text>
+
+
 
 
 <SelectDropdown
